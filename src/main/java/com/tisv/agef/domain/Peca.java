@@ -12,5 +12,12 @@ public class Peca {
 	private String nome;
 	private int tamanho;
 	
+	public Peca(String nome, int tamanho) {
+		super();
+		this.nome = nome;
+		this.tamanho = tamanho;
+	}
+	
+	
 	
 }
