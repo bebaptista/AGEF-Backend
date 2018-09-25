@@ -19,8 +19,8 @@ public class PecaResource {
 	@Autowired
 	private PecaService service;
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	@RequestMapping(value="/listar", method=RequestMethod.GET)
+	public ResponseEntity<?> findAll() {
 		List<Peca> obj = service.findAll();
 		
 		return ResponseEntity.ok(obj);
