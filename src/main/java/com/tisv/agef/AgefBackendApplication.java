@@ -33,7 +33,7 @@ public class AgefBackendApplication implements CommandLineRunner {
 		Peca p9 = new Peca("Meia calca", "40");
 		Peca p10 = new Peca("Sem ideia", "P");
 
-		pecaRepository.saveAll(Arrays.asList(p1, p2));
+		pecaRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
 
 	}
 }
