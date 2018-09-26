@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.tisv.agef.domain.Peca;
 import com.tisv.agef.domain.PecaFeira;
 import com.tisv.agef.repositories.PecaFeiraRepository;
 
@@ -33,6 +34,9 @@ public class PecaFeiraService {
 		Optional<PecaFeira> obj = repo.findById(id);
 		
 		if (obj.isPresent()) {
+			PecaFeira pFeira = obj.get();
+			pFeira.setPreco(pecaFeira.getPreco());
+			pFeira.setQuantidade(pecaFeira.getQuantidade());
 			repo.save(pecaFeira);	
 		}
 		

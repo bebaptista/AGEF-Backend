@@ -39,6 +39,8 @@ public class AgefBackendApplication implements CommandLineRunner {
 		Peca p9 = new Peca("Meia calca", "40");
 		Peca p10 = new Peca("Sem ideia", "P");
 
+		pecaRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
+		
 		PecaFeira pf1 = new PecaFeira(p1, 40.00, 100);
 		PecaFeira pf2 = new PecaFeira(p2, 50.00, 90);	
 		PecaFeira pf3 = new PecaFeira(p3, 60.00, 80);	
@@ -50,8 +52,6 @@ public class AgefBackendApplication implements CommandLineRunner {
 		PecaFeira pf9 = new PecaFeira(p9, 120.00, 20);	
 		PecaFeira pf10 = new PecaFeira(p10, 130.00, 10);	
 		
-		pecaRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
-
 		pecaFeiraRepository.saveAll(Arrays.asList(pf1, pf2, pf3, pf4, pf5, pf6, pf7, pf8, pf9, pf10));
 	}
 }

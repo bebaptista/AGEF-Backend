@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.tisv.agef.domain.PecaFeira;
 
 @Repository
-public interface PecaFeiraRepository extends JpaRepository<PecaFeira, Integer>{}
+public interface PecaFeiraRepository extends JpaRepository<PecaFeira, Integer>{ }

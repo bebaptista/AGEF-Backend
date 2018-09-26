@@ -22,7 +22,7 @@ public class PecaFeira implements Serializable {
 	
 	private Integer quantidade;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Peca peca;
 	
 	public PecaFeira() { }
