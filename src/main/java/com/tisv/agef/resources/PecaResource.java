@@ -3,6 +3,7 @@ package com.tisv.agef.resources;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,10 +37,10 @@ public class PecaResource {
 	public void removerPeca(@PathVariable Integer id){
 		service.removerPeca(id);
 	}
-	/*
+	
 	@PutMapping(value="/editar/{id}")
 	public ResponseEntity<?> editarPeca(@RequestBody Peca peca, @PathVariable Integer id){
-		service.editarPeca(id);
-	}*/
+		return service.editarPeca(peca, id);
+	}
 	
 }
