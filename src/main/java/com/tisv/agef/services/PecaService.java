@@ -28,10 +28,10 @@ public class PecaService {
 	public void removerPeca(Integer id) {
 		repo.deleteById(id);
 	}
-	
-	public ResponseEntity editarPeca(Integer id) {
+	/*
+	public ResponseEntity<?> editarPeca(Integer id) {
 		Optional<Peca> obj = repo.findById(id);
-		if(!)
-	}
+		if(!PecaOptional.isPresent()) return Response
+	}*/
 
 }
