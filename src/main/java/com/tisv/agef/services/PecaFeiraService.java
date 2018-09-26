@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.tisv.agef.domain.Peca;
 import com.tisv.agef.domain.PecaFeira;
 import com.tisv.agef.repositories.PecaFeiraRepository;
 
