@@ -35,8 +35,10 @@ public class PecaFeiraService {
 		
 		if (obj.isPresent()) {
 			PecaFeira pFeira = obj.get();
+			
 			pFeira.setPreco(pecaFeira.getPreco());
 			pFeira.setQuantidade(pecaFeira.getQuantidade());
+			
 			repo.save(pecaFeira);	
 		}
 		
