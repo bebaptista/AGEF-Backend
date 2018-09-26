@@ -36,10 +36,10 @@ public class PecaResource {
 	public void removerPeca(@PathVariable Integer id){
 		service.removerPeca(id);
 	}
-	/*
+	
 	@PutMapping(value="/editar/{id}")
-	public void editarPeca(@RequestBody Peca peca, @PathVariable Integer id){
+	public ResponseEntity<?> editarPeca(@RequestBody Peca peca, @PathVariable Integer id){
 		service.editarPeca(id);
-	}*/
+	}
 	
 }

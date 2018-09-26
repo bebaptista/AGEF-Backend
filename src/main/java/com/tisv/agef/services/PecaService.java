@@ -29,9 +29,9 @@ public class PecaService {
 		repo.deleteById(id);
 	}
 	
-	/*public void editarPeca(Integer id) {
+	public ResponseEntity editarPeca(Integer id) {
 		Optional<Peca> obj = repo.findById(id);
-		obj.
-	}*/
+		if(!)
+	}
 
 }

@@ -14,11 +14,11 @@ public class Peca implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String nome;
-	private int tamanho;
+	private String tamanho;
 	
 	public Peca() { }
 	
-	public Peca(String nome, int tamanho) {
+	public Peca(String nome, String tamanho) {
 		super();
 		this.nome = nome;
 		this.tamanho = tamanho;
@@ -40,11 +40,11 @@ public class Peca implements Serializable {
 		this.nome = nome;
 	}
 
-	public int getTamanho() {
+	public String getTamanho() {
 		return tamanho;
 	}
 
-	public void setTamanho(int tamanho) {
+	public void setTamanho(String tamanho) {
 		this.tamanho = tamanho;
 	}
 }
