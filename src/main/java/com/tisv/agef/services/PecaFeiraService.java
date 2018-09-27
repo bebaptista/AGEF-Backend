@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.tisv.agef.domain.PecaFeira;
@@ -16,32 +15,30 @@ public class PecaFeiraService {
 	@Autowired
 	private PecaFeiraRepository repo;
 
-	public List<PecaFeira> listarPecas() {
-		List<PecaFeira> objs = repo.findAll();
-		return objs;
+	public List<PecaFeira> listarPecasFeira() {
+		List<PecaFeira> pecasFeira = repo.findAll();
+		return pecasFeira;
 	}
 
-	public void adicionarPeca(PecaFeira pecaFeira) {
+	public void adicionarPecaFeira(PecaFeira pecaFeira) {
 		repo.save(pecaFeira);
 	}
 
-	public void removerPeca(Integer id) {
+	public void removerPecaFeira(Integer id) {
 		repo.deleteById(id);
 	}
 
-	public ResponseEntity<?> editarPeca(PecaFeira pecaFeira, Integer id) {
+	public void editarPecaFeira(PecaFeira pecaFeiraArg, Integer id) {
 		Optional<PecaFeira> obj = repo.findById(id);
-		
+
 		if (obj.isPresent()) {
-			PecaFeira pFeira = obj.get();
-			
-			pFeira.setPreco(pecaFeira.getPreco());
-			pFeira.setQuantidade(pecaFeira.getQuantidade());
-			
-			repo.save(pecaFeira);	
+			PecaFeira pecaFeira = obj.get();
+
+			pecaFeira.setPreco(pecaFeiraArg.getPreco());
+			pecaFeira.setQuantidade(pecaFeiraArg.getQuantidade());
+
+			repo.save(pecaFeiraArg);
 		}
-		
-		return ResponseEntity.noContent().build();
 	}
 
 }

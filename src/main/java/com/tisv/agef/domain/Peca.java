@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 public class Peca implements Serializable {
 
@@ -16,6 +18,7 @@ public class Peca implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@ApiModelProperty(hidden = true)
 	private int id;
 	
 	@OneToOne
@@ -37,10 +40,6 @@ public class Peca implements Serializable {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -56,4 +55,35 @@ public class Peca implements Serializable {
 	public void setTamanho(String tamanho) {
 		this.tamanho = tamanho;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((tamanho == null) ? 0 : tamanho.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Peca other = (Peca) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (tamanho == null) {
+			if (other.tamanho != null)
+				return false;
+		} else if (!tamanho.equals(other.tamanho))
+			return false;
+		return true;
+	}	
 }

@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 public class PecaFeira implements Serializable {
 
@@ -15,6 +17,7 @@ public class PecaFeira implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@ApiModelProperty(hidden = true)
 	private int id;
 	
 	private Double preco;
@@ -35,10 +38,6 @@ public class PecaFeira implements Serializable {
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public Double getPreco() {
@@ -63,5 +62,30 @@ public class PecaFeira implements Serializable {
 
 	public void setPeca(Peca peca) {
 		this.peca = peca;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((peca == null) ? 0 : peca.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PecaFeira other = (PecaFeira) obj;
+		if (peca == null) {
+			if (other.peca != null)
+				return false;
+		} else if (!peca.equals(other.peca))
+			return false;
+		return true;
 	}
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.tisv.agef.domain.Peca;
@@ -29,7 +28,7 @@ public class PecaService {
 		repo.deleteById(id);
 	}
 
-	public ResponseEntity<?> editarPeca(Peca peca, Integer id) {
+	public void editarPeca(Integer id, Peca peca) {
 		Optional<Peca> obj = repo.findById(id);
 		
 		if (obj.isPresent()) {
@@ -40,7 +39,5 @@ public class PecaService {
 			
 			repo.save(p);	
 		}
-	
-		return ResponseEntity.noContent().build();
 	}
 }

@@ -5,41 +5,45 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tisv.agef.domain.PecaFeira;
 import com.tisv.agef.services.PecaFeiraService;
 
 @RestController
-@RequestMapping(value="/pecaFeira")
+@RequestMapping(value = "/pecafeira")
 public class PecaFeiraResource {
-	
+
 	@Autowired
 	private PecaFeiraService service;
-	
-	@RequestMapping(value="/listar", method=RequestMethod.GET)
-	public List<PecaFeira> listarPecas() {
-		return service.listarPecas();
+
+	@GetMapping
+	public ResponseEntity<?> listarPecasFeira() {
+		List<PecaFeira> pecasFeira = service.listarPecasFeira();
+		return ResponseEntity.ok(pecasFeira);
 	}
-	
-	@PostMapping(value="/adicionar")
-	public void adicionarPeca(@RequestBody PecaFeira peca){
-		service.adicionarPeca(peca);
+
+	@PostMapping
+	public ResponseEntity<?> adicionarPecaFeira(@RequestBody PecaFeira pecaFeira) {
+		service.adicionarPecaFeira(pecaFeira);
+		return ResponseEntity.noContent().build();
 	}
-	
-	@DeleteMapping(value="/remover/{id}")
-	public void removerPeca(@PathVariable Integer id){
-		service.removerPeca(id);
+
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<?> removerPecaFeira(@PathVariable Integer id) {
+		service.removerPecaFeira(id);
+		return ResponseEntity.noContent().build();
 	}
-	
-	@PutMapping(value="/editar/{id}")
-	public ResponseEntity<?> editarPeca(@RequestBody PecaFeira pecaFeira, @PathVariable Integer id){
-		return service.editarPeca(pecaFeira, id);
+
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<?> editarPecaFeira(@RequestBody PecaFeira pecaFeira, @PathVariable Integer id) {
+		service.editarPecaFeira(pecaFeira, id);
+		return ResponseEntity.noContent().build();
 	}
 }
