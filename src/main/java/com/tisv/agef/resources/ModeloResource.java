@@ -18,34 +18,34 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.tisv.agef.domain.Peca;
-import com.tisv.agef.services.PecaService;
+import com.tisv.agef.domain.Modelo;
+import com.tisv.agef.services.ModeloService;
 
 @RestController
-@RequestMapping(value = "/peca")
-public class PecaResource {
+@RequestMapping(value = "/modelo")
+public class ModeloResource {
 
 	@Autowired
-	private PecaService service;
+	private ModeloService service;
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Peca peca = service.find(id);
-		return ResponseEntity.ok(peca);
+		Modelo modelo = service.find(id);
+		return ResponseEntity.ok(modelo);
 	}
 	
 	@GetMapping()
 	public ResponseEntity<?> findAll() {
-		List<Peca> pecas = service.findAll();
-		return ResponseEntity.ok(pecas);
+		List<Modelo> modelos = service.findAll();
+		return ResponseEntity.ok(modelos);
 	}
 
 	@PostMapping()
-	public ResponseEntity<?> insert(@RequestBody Peca pecaArg) {
-		Peca peca = service.insert(pecaArg);
+	public ResponseEntity<?> insert(@RequestBody Modelo modeloArg) {
+		Modelo modelo = service.insert(modeloArg);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(peca.getId()).toUri();
+				.path("/{id}").buildAndExpand(modelo.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
 	}
@@ -57,8 +57,8 @@ public class PecaResource {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Peca peca) {
-		service.update(id, peca);
+	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Modelo modelo) {
+		service.update(id, modelo);
 		return ResponseEntity.noContent().build();
 	}
 

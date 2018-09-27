@@ -7,16 +7,16 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.tisv.agef.domain.Peca;
+import com.tisv.agef.domain.Modelo;
 import com.tisv.agef.domain.PecaFeira;
 import com.tisv.agef.repositories.PecaFeiraRepository;
-import com.tisv.agef.repositories.PecaRepository;
+import com.tisv.agef.repositories.ModeloRepository;
 
 @SpringBootApplication
 public class AgefBackendApplication implements CommandLineRunner {
 
 	@Autowired
-	private PecaRepository pecaRepository;
+	private ModeloRepository modeloRepository;
 
 	@Autowired
 	private PecaFeiraRepository pecaFeiraRepository;
@@ -28,18 +28,18 @@ public class AgefBackendApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Peca p1 = new Peca("Calca", "40");
-		Peca p2 = new Peca("Blusa", "P");
-		Peca p3 = new Peca("Jeans", "40");
-		Peca p4 = new Peca("Carlos", "P");
-		Peca p5 = new Peca("Eric", "40");
-		Peca p6 = new Peca("Batata", "P");
-		Peca p7 = new Peca("Meia", "40");
-		Peca p8 = new Peca("Underwear", "P");
-		Peca p9 = new Peca("Meia calca", "40");
-		Peca p10 = new Peca("Sem ideia", "P");
+		Modelo p1 = new Modelo("Calca", "40");
+		Modelo p2 = new Modelo("Blusa", "P");
+		Modelo p3 = new Modelo("Jeans", "40");
+		Modelo p4 = new Modelo("Carlos", "P");
+		Modelo p5 = new Modelo("Eric", "40");
+		Modelo p6 = new Modelo("Batata", "P");
+		Modelo p7 = new Modelo("Meia", "40");
+		Modelo p8 = new Modelo("Underwear", "P");
+		Modelo p9 = new Modelo("Meia calca", "40");
+		Modelo p10 = new Modelo("Sem ideia", "P");
 
-		pecaRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
+		modeloRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
 		
 		PecaFeira pf1 = new PecaFeira(p1, 40.00, 100);
 		PecaFeira pf2 = new PecaFeira(p2, 50.00, 90);	

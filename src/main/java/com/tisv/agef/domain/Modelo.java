@@ -12,7 +12,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
-public class Peca implements Serializable {
+public class Modelo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,9 +28,9 @@ public class Peca implements Serializable {
 	private String nome;
 	private String tamanho;
 	
-	public Peca() { }
+	public Modelo() { }
 	
-	public Peca(String nome, String tamanho) {
+	public Modelo(String nome, String tamanho) {
 		super();
 		this.nome = nome;
 		this.tamanho = tamanho;
@@ -73,7 +73,7 @@ public class Peca implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Peca other = (Peca) obj;
+		Modelo other = (Modelo) obj;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
