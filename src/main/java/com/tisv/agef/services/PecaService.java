@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tisv.agef.domain.Peca;
 import com.tisv.agef.repositories.PecaRepository;
+import com.tisv.agef.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class PecaService {
@@ -15,20 +16,27 @@ public class PecaService {
 	@Autowired
 	private PecaRepository repo;
 
-	public List<Peca> listarPecas() {
+	public Peca find(Integer id) {
+		Optional<Peca> obj = repo.findById(id);
+		
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! ID: " + id + ", Tipo: " + Peca.class.getName()));
+	}
+	
+	public List<Peca> findAll() {
 		List<Peca> objs = repo.findAll();
 		return objs;
 	}
 
-	public void adicionarPeca(Peca peca) {
-		repo.save(peca);
+	public Peca insert(Peca peca) {
+		return repo.save(peca);
 	}
 
-	public void removerPeca(Integer id) {
+	public void delete(Integer id) {
 		repo.deleteById(id);
 	}
 
-	public void editarPeca(Integer id, Peca peca) {
+	public void update(Integer id, Peca peca) {
 		Optional<Peca> obj = repo.findById(id);
 		
 		if (obj.isPresent()) {
