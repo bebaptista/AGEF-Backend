@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.tisv.agef.domain.Modelo;
 import com.tisv.agef.domain.PecaFeira;
-import com.tisv.agef.repositories.PecaFeiraRepository;
 import com.tisv.agef.repositories.ModeloRepository;
+import com.tisv.agef.repositories.PecaFeiraRepository;
 
 @SpringBootApplication
 public class AgefBackendApplication implements CommandLineRunner {

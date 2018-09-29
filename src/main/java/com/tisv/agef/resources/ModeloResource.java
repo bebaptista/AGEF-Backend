@@ -64,6 +64,7 @@ public class ModeloResource {
 
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<?> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
-		return ResponseEntity.badRequest().body("Existe alguma constraint na entidade sendo utilizada.");
+		return ResponseEntity.badRequest().body("Existe alguma peça associada ao modelo selecionado, apague a peça antes de remover o modelo."
+				+ "\nErro:" + ex.toString());
 	}
 }
