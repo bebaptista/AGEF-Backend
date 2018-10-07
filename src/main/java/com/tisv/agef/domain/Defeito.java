@@ -3,14 +3,16 @@ package com.tisv.agef.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 import io.swagger.annotations.ApiModelProperty;
 
+@Entity
 public class Defeito implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -19,7 +21,7 @@ public class Defeito implements Serializable{
 	@ApiModelProperty(hidden = true)
 	private int id;
 	
-	@OneToMany
+	@ManyToOne
 	@PrimaryKeyJoinColumn
 	private PecaFeira pecaFeira;
 	

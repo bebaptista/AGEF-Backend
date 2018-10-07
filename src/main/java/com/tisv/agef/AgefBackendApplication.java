@@ -1,5 +1,6 @@
 package com.tisv.agef;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.tisv.agef.domain.Defeito;
 import com.tisv.agef.domain.Modelo;
 import com.tisv.agef.domain.PecaFeira;
+import com.tisv.agef.domain.Venda;
+import com.tisv.agef.repositories.DefeitoRepository;
 import com.tisv.agef.repositories.ModeloRepository;
 import com.tisv.agef.repositories.PecaFeiraRepository;
+import com.tisv.agef.repositories.VendaRepository;
 
 @SpringBootApplication
 public class AgefBackendApplication implements CommandLineRunner {
@@ -20,6 +25,12 @@ public class AgefBackendApplication implements CommandLineRunner {
 
 	@Autowired
 	private PecaFeiraRepository pecaFeiraRepository;
+	
+	@Autowired
+	private DefeitoRepository defeitoRepository;
+	
+	@Autowired
+	private VendaRepository vendaRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AgefBackendApplication.class, args);
@@ -53,5 +64,31 @@ public class AgefBackendApplication implements CommandLineRunner {
 		PecaFeira pf10 = new PecaFeira(p10, 130.00, 10);	
 		
 		pecaFeiraRepository.saveAll(Arrays.asList(pf1, pf2, pf3, pf4, pf5, pf6, pf7, pf8, pf9, pf10));
+		
+		Venda v1 = new Venda(pf1,LocalDate.now(),10.00,1);
+		Venda v2 = new Venda(pf2,LocalDate.now(),20.00,1);
+		Venda v3 = new Venda(pf3,LocalDate.now(),30.00,1);
+		Venda v4 = new Venda(pf4,LocalDate.now(),40.00,1);
+		Venda v5 = new Venda(pf5,LocalDate.now(),50.00,1);
+		Venda v6 = new Venda(pf6,LocalDate.now(),60.00,1);
+		Venda v7 = new Venda(pf7,LocalDate.now(),70.00,1);
+		Venda v8 = new Venda(pf8,LocalDate.now(),80.00,1);
+		Venda v9 = new Venda(pf9,LocalDate.now(),90.00,1);
+		Venda v10 = new Venda(pf10,LocalDate.now(),100.00,1);
+		
+		vendaRepository.saveAll(Arrays.asList(v1,v2,v3,v4,v5,v6,v7,v8,v9,v10));
+		
+		Defeito d1 = new Defeito(pf1,LocalDate.now(),1);
+		Defeito d2 = new Defeito(pf1,LocalDate.now(),1);
+		Defeito d3 = new Defeito(pf1,LocalDate.now(),1);
+		Defeito d4 = new Defeito(pf1,LocalDate.now(),1);
+		Defeito d5 = new Defeito(pf1,LocalDate.now(),1);
+		Defeito d6 = new Defeito(pf1,LocalDate.now(),1);
+		Defeito d7 = new Defeito(pf1,LocalDate.now(),1);
+		Defeito d8 = new Defeito(pf1,LocalDate.now(),1);
+		Defeito d9 = new Defeito(pf1,LocalDate.now(),1);
+		Defeito d10 = new Defeito(pf1,LocalDate.now(),1);
+		
+		defeitoRepository.saveAll(Arrays.asList(d1,d2,d3,d4,d5,d6,d7,d8,d9,d10));
 	}
 }
