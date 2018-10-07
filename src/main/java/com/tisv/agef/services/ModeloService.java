@@ -36,7 +36,7 @@ public class ModeloService {
 		repo.deleteById(id);
 	}
 
-	public void update(Integer id, Modelo modelo) {
+	public void update(Modelo modelo, Integer id) {
 		Optional<Modelo> obj = repo.findById(id);
 		
 		if (obj.isPresent()) {
