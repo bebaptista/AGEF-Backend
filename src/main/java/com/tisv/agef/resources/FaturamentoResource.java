@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tisv.agef.services.FaturamentoService;
 
 @RestController
-@RequestMapping(value = "/vendas/faturamento")
+@RequestMapping(value = "/faturamentos")
 public class FaturamentoResource {
 	
 	@Autowired
 	private FaturamentoService service;
 	
 	@GetMapping
-	public ResponseEntity<?> calculaFaturamento(@RequestParam(value = "dataInicial") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicial, @RequestParam(value = "dataFinal") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFinal) {
+	public ResponseEntity<?> calculaFaturamento(@RequestParam(value = "dataInicial") @DateTimeFormat(pattern=("dd-MM-yyyy")) LocalDate dataInicial, @RequestParam(value = "dataFinal") @DateTimeFormat(pattern=("dd-MM-yyyy")) LocalDate dataFinal) {
 		Double faturamento = service.calculaFaturamento(dataInicial, dataFinal);
 		return ResponseEntity.ok(faturamento);
 	}
