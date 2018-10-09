@@ -22,7 +22,7 @@ import com.tisv.agef.domain.Modelo;
 import com.tisv.agef.services.ModeloService;
 
 @RestController
-@RequestMapping(value = "/modelo")
+@RequestMapping(value = "/modelos")
 public class ModeloResource {
 
 	@Autowired

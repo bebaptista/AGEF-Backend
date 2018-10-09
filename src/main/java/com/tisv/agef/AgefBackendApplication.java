@@ -65,16 +65,16 @@ public class AgefBackendApplication implements CommandLineRunner {
 		
 		pecaFeiraRepository.saveAll(Arrays.asList(pf1, pf2, pf3, pf4, pf5, pf6, pf7, pf8, pf9, pf10));
 		
-		Venda v1 = new Venda(pf1,LocalDate.now(),10.00,1);
-		Venda v2 = new Venda(pf2,LocalDate.now(),20.00,1);
-		Venda v3 = new Venda(pf3,LocalDate.now(),30.00,1);
-		Venda v4 = new Venda(pf4,LocalDate.now(),40.00,1);
-		Venda v5 = new Venda(pf5,LocalDate.now(),50.00,1);
-		Venda v6 = new Venda(pf6,LocalDate.now(),60.00,1);
-		Venda v7 = new Venda(pf7,LocalDate.now(),70.00,1);
-		Venda v8 = new Venda(pf8,LocalDate.now(),80.00,1);
-		Venda v9 = new Venda(pf9,LocalDate.now(),90.00,1);
-		Venda v10 = new Venda(pf10,LocalDate.now(),100.00,1);
+		Venda v1 = new Venda(pf1,10.00,1);
+		Venda v2 = new Venda(pf2,20.00,1);
+		Venda v3 = new Venda(pf3,30.00,1);
+		Venda v4 = new Venda(pf4,40.00,1);
+		Venda v5 = new Venda(pf5,50.00,1);
+		Venda v6 = new Venda(pf6,60.00,1);
+		Venda v7 = new Venda(pf7,70.00,1);
+		Venda v8 = new Venda(pf8,80.00,1);
+		Venda v9 = new Venda(pf9,90.00,1);
+		Venda v10 = new Venda(pf10,100.00,1);
 		
 		vendaRepository.saveAll(Arrays.asList(v1,v2,v3,v4,v5,v6,v7,v8,v9,v10));
 		

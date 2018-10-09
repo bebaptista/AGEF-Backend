@@ -34,10 +34,10 @@ public class Venda implements Serializable {
 	
 	public Venda() {}
 
-	public Venda(PecaFeira pecaFeira, LocalDate data, Double preco, Integer quantidade) {
+	public Venda(PecaFeira pecaFeira, Double preco, Integer quantidade) {
 		super();
 		this.pecaFeira = pecaFeira;
-		this.data = data;
+		this.data = LocalDate.now();
 		this.preco = preco;
 		this.quantidade = quantidade;
 	}

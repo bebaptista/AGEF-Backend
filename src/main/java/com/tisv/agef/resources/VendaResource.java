@@ -31,13 +31,13 @@ public class VendaResource {
 		return ResponseEntity.ok(venda);
 	}
 	
-	@GetMapping()
+	@GetMapping
 	public ResponseEntity<?> findAll() {
 		List<Venda> vendas = service.findAll();
 		return ResponseEntity.ok(vendas);
 	}
 	
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<?> insert(@RequestBody Venda vendaArg) {
 		Venda venda = service.insert(vendaArg);
 		

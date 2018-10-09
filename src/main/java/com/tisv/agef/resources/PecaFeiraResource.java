@@ -22,7 +22,7 @@ import com.tisv.agef.domain.PecaFeira;
 import com.tisv.agef.services.PecaFeiraService;
 
 @RestController
-@RequestMapping(value = "/pecafeira")
+@RequestMapping(value = "/pecasfeira")
 public class PecaFeiraResource {
 
 	@Autowired

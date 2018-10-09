@@ -31,13 +31,13 @@ public class DefeitoResource {
 		return ResponseEntity.ok(defeito);
 	}
 	
-	@GetMapping()
+	@GetMapping
 	public ResponseEntity<?> findAll() {
 		List<Defeito> defeitos = service.findAll();
 		return ResponseEntity.ok(defeitos);
 	}
 	
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<?> insert(@RequestBody Defeito defeitoArg) {
 		Defeito defeito = service.insert(defeitoArg);
 		
