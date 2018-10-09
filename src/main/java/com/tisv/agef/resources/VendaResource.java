@@ -3,6 +3,8 @@ package com.tisv.agef.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +40,7 @@ public class VendaResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> insert(@RequestBody Venda vendaArg) {
+	public ResponseEntity<?> insert(@Valid @RequestBody Venda vendaArg) {
 		Venda venda = service.insert(vendaArg);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -54,7 +56,7 @@ public class VendaResource {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> update(@RequestBody Venda venda, @PathVariable Integer id) {
+	public ResponseEntity<?> update(@Valid @RequestBody Venda venda, @PathVariable Integer id) {
 		service.update(venda, id);
 		return ResponseEntity.noContent().build();
 	}

@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -22,14 +25,21 @@ public class Venda implements Serializable {
 	@ApiModelProperty(hidden = true)
 	private int id;
 	
+	@NotNull(message="É obrigatório o preenchimento da peça da feira.")
 	@ManyToOne
 	@PrimaryKeyJoinColumn
 	private PecaFeira pecaFeira;
 	
+	@NotNull(message="É obrigatório o preenchimento da data da venda.")
+	@PastOrPresent(message="O campo 'data' deve conter uma data válida.")
 	private LocalDate data;
 	
+	@NotNull(message="É obrigatório o preenchimento do preço.")
+	@Positive(message="O campo 'preço' deve conter um valor maior do que zero.")
 	private Double preco;
 	
+	@NotNull(message="É obrigatório o preenchimento da quantidade vendida.")
+	@Positive(message="O campo 'quantidade' deve conter um valor maior do que zero.")
 	private Integer quantidade;
 	
 	public Venda() {}
