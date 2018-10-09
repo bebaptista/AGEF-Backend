@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -22,11 +25,16 @@ public class Defeito implements Serializable{
 	private int id;
 	
 	@ManyToOne
+	@NotNull(message="É obrigatório o preenchimento da data da venda.")
 	@PrimaryKeyJoinColumn
 	private PecaFeira pecaFeira;
 	
+	@NotNull(message="É obrigatório o preenchimento da data da venda.")
+	@PastOrPresent(message="O campo 'data' deve conter uma data válida.")
 	private LocalDate data;
 	
+	@NotNull(message="É obrigatório o preenchimento da quantidade.")
+	@Positive(message="O campo 'quantidade' deve conter um valor maior do que zero.")
 	private Integer quantidade;
 	
 	public Defeito() {}

@@ -3,6 +3,8 @@ package com.tisv.agef.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +40,7 @@ public class DefeitoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> insert(@RequestBody Defeito defeitoArg) {
+	public ResponseEntity<?> insert(@Valid @RequestBody Defeito defeitoArg) {
 		Defeito defeito = service.insert(defeitoArg);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -54,7 +56,7 @@ public class DefeitoResource {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> update(@RequestBody Defeito defeito, @PathVariable Integer id) {
+	public ResponseEntity<?> update(@Valid @RequestBody Defeito defeito, @PathVariable Integer id) {
 		service.update(defeito, id);
 		return ResponseEntity.noContent().build();
 	}
