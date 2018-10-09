@@ -3,6 +3,8 @@ package com.tisv.agef.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +43,7 @@ public class ModeloResource {
 	}
 
 	@PostMapping()
-	public ResponseEntity<?> insert(@RequestBody Modelo modeloArg) {
+	public ResponseEntity<?> insert(@Valid @RequestBody Modelo modeloArg) {
 		Modelo modelo = service.insert(modeloArg);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -57,7 +59,7 @@ public class ModeloResource {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> update(@RequestBody Modelo modelo, @PathVariable Integer id) {
+	public ResponseEntity<?> update(@Valid @RequestBody Modelo modelo, @PathVariable Integer id) {
 		service.update(modelo, id);
 		return ResponseEntity.noContent().build();
 	}

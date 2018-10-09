@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -25,7 +26,10 @@ public class Modelo implements Serializable {
 	@PrimaryKeyJoinColumn
 	private PecaFeira pecaFeira;
 	
+	@NotBlank(message="É obrigatório o preenchimento do nome.")
 	private String nome;
+	
+	@NotBlank(message="É obrigatório o preenchimento do tamanho.")
 	private String tamanho;
 	
 	public Modelo() { }

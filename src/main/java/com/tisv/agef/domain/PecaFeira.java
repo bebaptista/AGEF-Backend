@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -23,10 +25,15 @@ public class PecaFeira implements Serializable {
 	@ApiModelProperty(hidden = true)
 	private int id;
 	
+	@NotNull(message="É obrigatório o preenchimento do preço.")
+	@Positive(message="O campo 'preço' deve conter um valor maior do que zero.")
 	private Double preco;
 	
+	@NotNull(message="É obrigatório o preenchimento da quantidade de peças.")
+	@Positive(message="O campo 'quantidade' deve conter um valor maior do que zero.")
 	private Integer quantidade;
 	
+	@NotNull(message="É obrigatório o preenchimento do modelo.")
 	@OneToOne
 	private Modelo modelo;
 	
