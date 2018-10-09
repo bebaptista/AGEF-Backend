@@ -25,11 +25,11 @@ public class Defeito implements Serializable{
 	private int id;
 	
 	@ManyToOne
-	@NotNull(message="É obrigatório o preenchimento da data da venda.")
+	@NotNull(message="É obrigatório o preenchimento da peca feira.")
 	@PrimaryKeyJoinColumn
 	private PecaFeira pecaFeira;
 	
-	@NotNull(message="É obrigatório o preenchimento da data da venda.")
+	@NotNull(message="É obrigatório o preenchimento da data do defeito.")
 	@PastOrPresent(message="O campo 'data' deve conter uma data válida.")
 	private LocalDate data;
 	
