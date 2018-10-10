@@ -50,7 +50,7 @@ public class VendaService {
 	}
 	
 	public Double calcularFaturamento(LocalDate dataInicial, LocalDate dataFinal){
-		Double faturamento = repo.calculaFaturamento(dataInicial, dataFinal);
+		Double faturamento = repo.calcularFaturamento(dataInicial, dataFinal);
 		return faturamento;
 	}
 }

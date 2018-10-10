@@ -12,5 +12,5 @@ import com.tisv.agef.domain.Venda;
 public interface VendaRepository extends JpaRepository<Venda, Integer>{
 	
 	@Query("SELECT SUM(preco) FROM Venda WHERE data BETWEEN ?1 AND ?2")
-	Double calculaFaturamento(LocalDate dataInicial, LocalDate dataFinal);
+	Double calcularFaturamento(LocalDate dataInicial, LocalDate dataFinal);
 }
