@@ -1,5 +1,6 @@
 package com.tisv.agef.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,5 +47,10 @@ public class VendaService {
 
 			repo.save(vendaArg);
 		}
+	}
+	
+	public Double calcularFaturamento(LocalDate dataInicial, LocalDate dataFinal){
+		Double faturamento = repo.calculaFaturamento(dataInicial, dataFinal);
+		return faturamento;
 	}
 }

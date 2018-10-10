@@ -65,18 +65,18 @@ public class AgefBackendApplication implements CommandLineRunner {
 		
 		pecaFeiraRepository.saveAll(Arrays.asList(pf1, pf2, pf3, pf4, pf5, pf6, pf7, pf8, pf9, pf10));
 		
-		Venda v1 = new Venda(pf1,10.00,1);
-		Venda v2 = new Venda(pf2,20.00,1);
-		Venda v3 = new Venda(pf3,30.00,1);
-		Venda v4 = new Venda(pf4,40.00,1);
-		Venda v5 = new Venda(pf5,50.00,1);
-		Venda v6 = new Venda(pf6,60.00,1);
-		Venda v7 = new Venda(pf7,70.00,1);
-		Venda v8 = new Venda(pf8,80.00,1);
-		Venda v9 = new Venda(pf9,90.00,1);
-		Venda v10 = new Venda(pf10,100.00,1);
+		Venda v1 = new Venda(10.00, p1.getNome(), p1.getTamanho(), 30, LocalDate.now());
+		Venda v2 = new Venda(20.00, p2.getNome(), p2.getTamanho(), 40, LocalDate.now());	
+		Venda v3 = new Venda(30.00, p3.getNome(), p3.getTamanho(), 50, LocalDate.now());	
+		Venda v4 = new Venda(40.00, p4.getNome(), p4.getTamanho(), 60, LocalDate.now());	
+		Venda v5 = new Venda(50.00, p5.getNome(), p5.getTamanho(), 70, LocalDate.now());	
+		Venda v6 = new Venda(60.00, p6.getNome(), p6.getTamanho(), 80, LocalDate.now());	
+		Venda v7 = new Venda(70.00, p7.getNome(), p7.getTamanho(), 90, LocalDate.now());	
+		Venda v8 = new Venda(80.00, p8.getNome(), p8.getTamanho(), 100, LocalDate.now());	
+		Venda v9 = new Venda(90.00, p9.getNome(), p9.getTamanho(), 110, LocalDate.now());	
+		Venda v10 = new Venda(100.00, p10.getNome(), p10.getTamanho(), 120, LocalDate.now());	
 		
-		vendaRepository.saveAll(Arrays.asList(v1,v2,v3,v4,v5,v6,v7,v8,v9,v10));
+		vendaRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10));
 		
 		Defeito d1 = new Defeito(pf1,LocalDate.now(),1);
 		Defeito d2 = new Defeito(pf1,LocalDate.now(),1);
