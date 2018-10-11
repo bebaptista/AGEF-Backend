@@ -86,7 +86,7 @@ public class VendaResource {
 			@ApiResponse(code = 400, message = "Bad Request. O objeto enviado no corpo da requisição é inválido.")
 	})
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@PostMapping
+	@PostMapping(consumes={"application/json", "application/xml"})
 	public ResponseEntity<?> insert(@Valid @RequestBody Venda vendaArg) {
 		Venda venda = service.insert(vendaArg);
 

@@ -68,7 +68,7 @@ public class ModeloResource {
 			@ApiResponse(code = 400, message = "Bad Request. O objeto enviado no corpo da requisição é inválido.")
 	})
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@PostMapping()
+	@PostMapping(consumes={"application/json", "application/xml"})
 	public ResponseEntity<?> insert(@Valid @RequestBody Modelo modeloArg) {
 		Modelo modelo = service.insert(modeloArg);
 
@@ -95,7 +95,7 @@ public class ModeloResource {
 			@ApiResponse(code = 400, message = "Bad Request. O objeto enviado no corpo da requisição é inválido.")
 	})
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	@PutMapping(value = "/{id}")
+	@PutMapping(value = "/{id}",consumes={"application/json", "application/xml"})
 	public ResponseEntity<?> update(@Valid @RequestBody Modelo modelo, @PathVariable Integer id) {
 		service.update(modelo, id);
 		return ResponseEntity.noContent().build();
