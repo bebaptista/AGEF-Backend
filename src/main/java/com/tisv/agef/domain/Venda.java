@@ -48,7 +48,6 @@ public class Venda implements Serializable {
 	public Venda() {}
 
 	public Venda(Double preco, String nome, String tamanho, Integer quantidade, LocalDate data) {
-		super();
 		this.preco = preco;
 		this.nome = nome;
 		this.tamanho = tamanho;
