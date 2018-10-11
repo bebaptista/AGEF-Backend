@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -22,7 +23,7 @@ public class PecaFeira extends Modelo implements Serializable {
 	private Double preco;
 
 	@NotNull(message = "É obrigatório o preenchimento da quantidade de peças.")
-	@Positive(message = "O campo 'quantidade' deve conter um valor maior do que zero.")
+	@PositiveOrZero(message = "O campo 'quantidade' deve conter um valor maior ou igual à zero.")
 	@ApiModelProperty(value = "Quantidade de peças no estoque da feira.", example = "25", allowableValues = "range[1, infinity]",  required = true)
 	private Integer quantidade;
 

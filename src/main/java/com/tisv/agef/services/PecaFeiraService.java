@@ -29,6 +29,15 @@ public class PecaFeiraService {
 		List<PecaFeira> pecasFeira = repo.findAll();
 		return pecasFeira;
 	}
+	
+	public PecaFeira findByNomeAndTamanho(String nome, String tamanho) {
+		Optional<PecaFeira> obj = repo.findByNomeAndTamanho(nome, tamanho);
+		
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado!" +
+				"\n" + "Parâmetros: '"+ nome + "' e '" + tamanho + "'." +
+				"\n" + "Tipo: '" + PecaFeira.class.getName() + "'."));
+	}
 
 	public PecaFeira insert(PecaFeira pecaFeira) {
 		return repo.save(pecaFeira);

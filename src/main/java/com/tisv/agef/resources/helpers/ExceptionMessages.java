@@ -18,6 +18,11 @@ public abstract class ExceptionMessages {
 			   "\n" + "Erro: '" + ex.toString() + "'.";
 	}
 	
+	public static String getIllegalArgumentExceptionMsg(IllegalArgumentException ex) {
+		return "O parâmetro enviado é inválido. Verifique as restrições impostas." + 
+			   "\n" + "Erro: '" + ex.toString() + "'.";
+	}
+	
 	public static String getObjectNotFoundExceptionMsg(ObjectNotFoundException ex) {
 		return "O parâmetro enviado não corresponde a nenhum objeto no servidor." + 
 			   "\n" + "Erro: '" + ex.toString() + "'.";

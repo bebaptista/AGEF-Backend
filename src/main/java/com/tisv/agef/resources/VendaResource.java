@@ -107,16 +107,21 @@ public class VendaResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	@ExceptionHandler(EmptyResultDataAccessException.class)
+	public ResponseEntity<?> handleConstraintViolation(EmptyResultDataAccessException ex, WebRequest request) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessages.getEmptyResultDataAccessExceptionMsg(ex));
+	}
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<?> handleConstraintViolation(IllegalArgumentException ex, WebRequest request) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessages.getIllegalArgumentExceptionMsg(ex));
+	}
+	
 	@ExceptionHandler(InvalidFormatException.class)
 	public ResponseEntity<?> handleConstraintViolation(InvalidFormatException ex, WebRequest request) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
 						"A data inserida está em um formato inválido. Certifique-se de formatá-la no modelo 'dd-MM-aaaa'." + 
 					    "\n" + "Erro: '" + ex.toString() + "'.");
-	}
-	
-	@ExceptionHandler(EmptyResultDataAccessException.class)
-	public ResponseEntity<?> handleConstraintViolation(EmptyResultDataAccessException ex, WebRequest request) {
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessages.getEmptyResultDataAccessExceptionMsg(ex));
 	}
 	
 	@ExceptionHandler(ObjectNotFoundException.class)
