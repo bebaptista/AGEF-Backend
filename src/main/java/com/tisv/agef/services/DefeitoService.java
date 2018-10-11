@@ -35,16 +35,4 @@ public class DefeitoService {
 	public void delete(Integer id) {
 		repo.deleteById(id);
 	}
-
-	public void update(Defeito defeitoArg, Integer id) {
-		Optional<Defeito> obj = repo.findById(id);
-
-		if (obj.isPresent()) {
-			Defeito defeito = obj.get();
-
-			defeito.setQuantidade(defeitoArg.getQuantidade());
-
-			repo.save(defeitoArg);
-		}
-	}
 }

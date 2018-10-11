@@ -6,23 +6,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"NOME", "TAMANHO"})})
 public class Modelo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@ApiModelProperty(hidden = true)
 	private int id;
-	
-	@OneToOne
-	private PecaFeira pecaFeira;
 	
 	@NotBlank(message="É obrigatório o preenchimento do nome.")
 	private String nome;
@@ -33,7 +35,6 @@ public class Modelo implements Serializable {
 	public Modelo() { }
 	
 	public Modelo(String nome, String tamanho) {
-		super();
 		this.nome = nome;
 		this.tamanho = tamanho;
 	}

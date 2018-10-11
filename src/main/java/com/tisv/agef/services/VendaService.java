@@ -21,7 +21,9 @@ public class VendaService {
 		Optional<Venda> obj = repo.findById(id);
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! ID: " + id + ", Tipo: " + Venda.class.getName()));
+				"Objeto não encontrado!" +
+				"\n" + "Parâmetro: '"+ id + "'." +
+				"\n" + "Tipo: '" + Venda.class.getName() + "'."));
 	}
 	
 	public List<Venda> findAll() {
@@ -35,18 +37,6 @@ public class VendaService {
 
 	public void delete(Integer id) {
 		repo.deleteById(id);
-	}
-
-	public void update(Venda vendaArg, Integer id) {
-		Optional<Venda> obj = repo.findById(id);
-
-		if (obj.isPresent()) {
-			Venda venda = obj.get();
-
-			venda.setQuantidade(vendaArg.getQuantidade());
-
-			repo.save(vendaArg);
-		}
 	}
 	
 	public Double calcularFaturamento(LocalDate dataInicial, LocalDate dataFinal){
