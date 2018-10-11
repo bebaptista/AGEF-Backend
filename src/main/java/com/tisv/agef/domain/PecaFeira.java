@@ -8,6 +8,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"NOME", "TAMANHO"})})
 public class PecaFeira extends Modelo implements Serializable {
@@ -16,10 +18,12 @@ public class PecaFeira extends Modelo implements Serializable {
 
 	@NotNull(message = "É obrigatório o preenchimento do preço.")
 	@Positive(message = "O campo 'preço' deve conter um valor maior do que zero.")
+	@ApiModelProperty(value = "Preço da peça no estoque da feira.", example = "45.50")
 	private Double preco;
 
 	@NotNull(message = "É obrigatório o preenchimento da quantidade de peças.")
 	@Positive(message = "O campo 'quantidade' deve conter um valor maior do que zero.")
+	@ApiModelProperty(value = "Quantidade de peças no estoque da feira.", example = "25")
 	private Integer quantidade;
 
 	public PecaFeira() {

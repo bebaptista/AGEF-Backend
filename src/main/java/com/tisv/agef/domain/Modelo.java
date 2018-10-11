@@ -27,9 +27,11 @@ public class Modelo implements Serializable {
 	private int id;
 	
 	@NotBlank(message="É obrigatório o preenchimento do nome.")
+	@ApiModelProperty(value = "Nome do modelo.", example = "Camisa Polo")
 	private String nome;
 	
 	@NotBlank(message="É obrigatório o preenchimento do tamanho.")
+	@ApiModelProperty(value = "Tamanho do modelo.", example = "P")
 	private String tamanho;
 	
 	public Modelo() { }

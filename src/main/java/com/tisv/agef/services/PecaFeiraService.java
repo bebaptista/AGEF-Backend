@@ -20,7 +20,9 @@ public class PecaFeiraService {
 		Optional<PecaFeira> obj = repo.findById(id);
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! ID: " + id + ", Tipo: " + PecaFeira.class.getName()));
+				"Objeto não encontrado!" +
+				"\n" + "Parâmetro: '"+ id + "'." +
+				"\n" + "Tipo: '" + PecaFeira.class.getName() + "'."));
 	}
 	
 	public List<PecaFeira> findAll() {

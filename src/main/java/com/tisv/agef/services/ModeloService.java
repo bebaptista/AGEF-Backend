@@ -20,7 +20,9 @@ public class ModeloService {
 		Optional<Modelo> obj = repo.findById(id);
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! ID: " + id + ", Tipo: " + Modelo.class.getName()));
+				"Objeto não encontrado!" +
+				"\n" + "Parâmetro: '"+ id + "'." +
+				"\n" + "Tipo: '" + Modelo.class.getName() + "'."));
 	}
 	
 	public List<Modelo> findAll() {

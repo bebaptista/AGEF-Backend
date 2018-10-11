@@ -20,7 +20,9 @@ public class DefeitoService {
 		Optional<Defeito> obj = repo.findById(id);
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! ID: " + id + ", Tipo: " + Defeito.class.getName()));
+				"Objeto não encontrado!" +
+				"\n" + "Parâmetro: '"+ id + "'." +
+				"\n" + "Tipo: '" + Defeito.class.getName() + "'."));
 	}
 	
 	public List<Defeito> findAll() {
