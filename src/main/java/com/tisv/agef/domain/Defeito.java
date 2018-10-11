@@ -7,8 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
@@ -26,43 +25,48 @@ public class Defeito implements Serializable {
 	@ApiModelProperty(hidden = true)
 	private int id;
 
-	@ManyToOne
-	@NotNull(message = "É obrigatório o preenchimento da peca feira.")
-	@PrimaryKeyJoinColumn
-	private PecaFeira pecaFeira;
+	@NotBlank(message = "É obrigatório o preenchimento do nome.")
+	@ApiModelProperty(value = "Nome do modelo referente a peça vendida.", example = "Calca", required = true)
+	private String nome;
+
+	@NotBlank(message = "É obrigatório o preenchimento do tamanho.")
+	@ApiModelProperty(value = "Tamanho do modelo referente a peça vendida.", example = "40", required = true)
+	private String tamanho;
+
+	@NotNull(message = "É obrigatório o preenchimento da quantidade vendida.")
+	@Positive(message = "O campo 'quantidade' deve conter um valor maior do que zero.")
+	@ApiModelProperty(value = "Quantidade de peças vendidas.", example = "2", required = true)
+	private Integer quantidade;
 
 	@NotNull(message = "É obrigatório o preenchimento da data da venda.")
 	@PastOrPresent(message = "O campo 'data' deve conter uma data válida.")
 	@JsonFormat(pattern = "dd-MM-yyyy")
+	@ApiModelProperty(value = "Data da venda.", example = "10/10/2018", required = true)
 	private LocalDate data;
-
-	@NotNull(message = "É obrigatório o preenchimento da quantidade.")
-	@Positive(message = "O campo 'quantidade' deve conter um valor maior do que zero.")
-	private Integer quantidade;
 
 	public Defeito() { }
 
-	public Defeito(PecaFeira pecaFeira, LocalDate data, Integer quantidade) {
-		super();
-		this.pecaFeira = pecaFeira;
-		this.data = data;
+	public Defeito(String nome, String tamanho, Integer quantidade, LocalDate data) {
+		this.nome = nome;
+		this.tamanho = tamanho;
 		this.quantidade = quantidade;
-	}
-
-	public PecaFeira getPecaFeira() {
-		return pecaFeira;
-	}
-
-	public void setPecaFeira(PecaFeira pecaFeira) {
-		this.pecaFeira = pecaFeira;
-	}
-
-	public LocalDate getData() {
-		return data;
-	}
-
-	public void setData(LocalDate data) {
 		this.data = data;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(String tamanho) {
+		this.tamanho = tamanho;
 	}
 
 	public Integer getQuantidade() {
@@ -73,8 +77,15 @@ public class Defeito implements Serializable {
 		this.quantidade = quantidade;
 	}
 
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
 	public int getId() {
 		return id;
 	}
-
 }

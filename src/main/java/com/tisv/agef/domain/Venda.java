@@ -18,34 +18,39 @@ import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 public class Venda implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(hidden = true)
 	private int id;
-	
-	@NotBlank(message="É obrigatório o preenchimento do nome.")
+
+	@NotBlank(message = "É obrigatório o preenchimento do nome.")
+	@ApiModelProperty(value = "Nome do modelo referente a peça vendida.", example = "Calca", required = true)
 	private String nome;
-	
-	@NotBlank(message="É obrigatório o preenchimento do tamanho.")
+
+	@NotBlank(message = "É obrigatório o preenchimento do tamanho.")
+	@ApiModelProperty(value = "Tamanho do modelo referente a peça vendida.", example = "40", required = true)
 	private String tamanho;
-	
-	@NotNull(message="É obrigatório o preenchimento do preço.")
-	@Positive(message="O campo 'preço' deve conter um valor maior do que zero.")
+
+	@NotNull(message = "É obrigatório o preenchimento do preço.")
+	@Positive(message = "O campo 'preço' deve conter um valor maior do que zero.")
+	@ApiModelProperty(value = "Preço praticado na venda da peça.", example = "60", required = true)
 	private Double preco;
-	
-	@NotNull(message="É obrigatório o preenchimento da quantidade vendida.")
-	@Positive(message="O campo 'quantidade' deve conter um valor maior do que zero.")
+
+	@NotNull(message = "É obrigatório o preenchimento da quantidade vendida.")
+	@Positive(message = "O campo 'quantidade' deve conter um valor maior do que zero.")
+	@ApiModelProperty(value = "Quantidade de peças vendidas.", example = "2", required = true)
 	private Integer quantidade;
-	
-	@NotNull(message="É obrigatório o preenchimento da data da venda.")
-	@PastOrPresent(message="O campo 'data' deve conter uma data válida.")
-	@JsonFormat(pattern="dd-MM-yyyy")
+
+	@NotNull(message = "É obrigatório o preenchimento da data da venda.")
+	@PastOrPresent(message = "O campo 'data' deve conter uma data válida.")
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	@ApiModelProperty(value = "Data da venda.", example = "10/10/2018", required = true)
 	private LocalDate data;
-	
-	public Venda() {}
+
+	public Venda() { }
 
 	public Venda(Double preco, String nome, String tamanho, Integer quantidade, LocalDate data) {
 		this.preco = preco;

@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.tisv.agef.domain.Defeito;
 
 @Repository
-public interface DefeitoRepository extends JpaRepository<Defeito,Integer>{}
+public interface DefeitoRepository extends JpaRepository<Defeito, Integer> { }

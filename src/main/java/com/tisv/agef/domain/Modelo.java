@@ -16,26 +16,26 @@ import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"NOME", "TAMANHO"})})
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "NOME", "TAMANHO" }) })
 public class Modelo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@ApiModelProperty(hidden = true)
 	private int id;
-	
-	@NotBlank(message="É obrigatório o preenchimento do nome.")
+
+	@NotBlank(message = "É obrigatório o preenchimento do nome.")
 	@ApiModelProperty(value = "Nome do modelo.", example = "Camisa Polo", required = true)
 	private String nome;
-	
-	@NotBlank(message="É obrigatório o preenchimento do tamanho.")
+
+	@NotBlank(message = "É obrigatório o preenchimento do tamanho.")
 	@ApiModelProperty(value = "Tamanho do modelo.", example = "P", required = true)
 	private String tamanho;
-	
+
 	public Modelo() { }
-	
+
 	public Modelo(String nome, String tamanho) {
 		this.nome = nome;
 		this.tamanho = tamanho;
@@ -90,5 +90,5 @@ public class Modelo implements Serializable {
 		} else if (!tamanho.equals(other.tamanho))
 			return false;
 		return true;
-	}	
+	}
 }
