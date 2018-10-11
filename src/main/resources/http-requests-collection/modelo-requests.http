@@ -1,0 +1,30 @@
+### Retorna todos os modelos.
+GET http://localhost:8080/modelos
+Accept: application/json
+
+### Retorna o modelo com id 'x'.
+GET http://localhost:8080/modelos/11
+Accept: application/json
+
+### Persiste o novo modelo.
+POST http://localhost:8080/modelos
+Content-Type: application/json
+
+{
+  "nome": "Camisa Polo",
+  "tamanho": "P"
+}
+
+### Atualiza o modelo com id 'x'.
+PUT http://localhost:8080/modelos/1
+Content-Type: application/json
+
+{
+  "nome": "Produto Alterado",
+  "tamanho": 42
+}
+
+### Apagar o modelo com id 'x'.
+DELETE http://localhost:8080/modelos/1
+
+###

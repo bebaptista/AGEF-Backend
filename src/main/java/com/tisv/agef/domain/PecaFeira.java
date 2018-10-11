@@ -2,9 +2,7 @@ package com.tisv.agef.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -14,8 +12,6 @@ import io.swagger.annotations.ApiModelProperty;
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "NOME", "TAMANHO" }) })
 public class PecaFeira extends Modelo implements Serializable {
-
-	private static final long serialVersionUID = 1L;
 
 	@NotNull(message = "É obrigatório o preenchimento do preço.")
 	@Positive(message = "O campo 'preço' deve conter um valor maior do que zero.")
@@ -29,8 +25,9 @@ public class PecaFeira extends Modelo implements Serializable {
 
 	public PecaFeira() { }
 
-	public PecaFeira(Modelo modelo, Double preco, Integer quantidade) {
-		super(modelo.getNome(), modelo.getTamanho());
+	public PecaFeira(String nome, String tamanho, Double preco, Integer quantidade) {
+		super.setNome(nome);
+		super.setTamanho(tamanho);
 		this.preco = preco;
 		this.quantidade = quantidade;
 	}

@@ -41,8 +41,18 @@ public class Modelo implements Serializable {
 		this.tamanho = tamanho;
 	}
 
+	public Modelo(int id, String nome, String tamanho) {
+		this.id = id;
+		this.nome = nome;
+		this.tamanho = tamanho;
+	}
+
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {

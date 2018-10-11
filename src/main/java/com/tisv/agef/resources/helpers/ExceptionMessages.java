@@ -10,7 +10,7 @@ public abstract class ExceptionMessages {
 	public static String getConstraintViolationExceptionMsg(ConstraintViolationException ex) {
 		return "Existe uma constraint associada ao objeto." + 
 			   "\n" + "Causa: '" + ex.getCause() + "'." +
-			   "\n" + "Erro: '" + ex.toString() + "'." ;
+			   "\n" + "Erro: '" + ex.getLocalizedMessage() + "'." ;
 	}
 	
 	public static String getEmptyResultDataAccessExceptionMsg(EmptyResultDataAccessException ex) {
