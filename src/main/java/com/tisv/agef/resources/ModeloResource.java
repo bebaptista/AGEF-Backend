@@ -1,118 +1,110 @@
 package com.tisv.agef.resources;
 
-import java.net.URI;
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.tisv.agef.domain.Modelo;
+import com.tisv.agef.resources.helpers.ExceptionMessages;
+import com.tisv.agef.services.ModeloService;
+import com.tisv.agef.services.exceptions.ObjectNotFoundException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.tisv.agef.domain.Modelo;
-import com.tisv.agef.resources.helpers.ExceptionMessages;
-import com.tisv.agef.services.ModeloService;
-import com.tisv.agef.services.exceptions.ObjectNotFoundException;
-
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/modelos")
 public class ModeloResource {
 
-	@Autowired
-	private ModeloService service;
+    private final ModeloService service;
 
-	@ApiOperation(value = "Retorna o modelo correspondente ao parâmetro")
-	@ApiResponses(value = { 
-			@ApiResponse(code = 200, message = "OK"), 
-			@ApiResponse(code = 404, message = "Not Found. O objeto solicitado não foi encontrado no servidor.")
-	})
-	@GetMapping(value = "/{id}", produces={"application/json", "application/xml"})
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Modelo modelo = service.find(id);
-		return ResponseEntity.ok(modelo);
-	}
+    @Autowired
+    public ModeloResource(ModeloService service) {
+        this.service = service;
+    }
 
-	@ApiOperation(value = "Retorna todos os modelos persistidos.")
-	@ApiResponses(value = { 
-			@ApiResponse(code = 200, message = "OK"),
-			@ApiResponse(code = 204, message = "No Content")
-	})
-	@GetMapping(produces={"application/json", "application/xml"})
-	public ResponseEntity<?> findAll() {
-		List<Modelo> modelos = service.findAll();
+    @ApiOperation(value = "Retorna o modelo correspondente ao parâmetro")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found. O objeto solicitado não foi encontrado no servidor.")
+    })
+    @GetMapping(value = "/{id}", produces = {"application/json", "application/xml"})
+    public ResponseEntity<?> find(@PathVariable Integer id) {
+        Modelo modelo = service.find(id);
+        return ResponseEntity.ok(modelo);
+    }
 
-		return (modelos.isEmpty()) ? ResponseEntity.noContent().build() : ResponseEntity.ok(modelos);
-	}
+    @ApiOperation(value = "Retorna todos os modelos persistidos.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 204, message = "No Content")
+    })
+    @GetMapping(produces = {"application/json", "application/xml"})
+    public ResponseEntity<?> findAll() {
+        List<Modelo> modelos = service.findAll();
 
-	@ApiOperation(value = "Persiste o modelo enviado no corpo da requisição.")
-	@ApiResponses(value = { 
-			@ApiResponse(code = 201, message = "Created"),
-			@ApiResponse(code = 400, message = "Bad Request. O objeto enviado no corpo da requisição é inválido.")
-	})
-	@ResponseStatus(value = HttpStatus.CREATED)
-	@PostMapping(consumes={"application/json", "application/xml"})
-	public ResponseEntity<?> insert(@Valid @RequestBody Modelo modeloArg) {
-		Modelo modelo = service.insert(modeloArg);
+        return (modelos.isEmpty()) ? ResponseEntity.noContent().build() : ResponseEntity.ok(modelos);
+    }
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(modelo.getId()).toUri();
+    @ApiOperation(value = "Persiste o modelo enviado no corpo da requisição.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Created"),
+            @ApiResponse(code = 400, message = "Bad Request. O objeto enviado no corpo da requisição é inválido.")
+    })
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @PostMapping(consumes = {"application/json", "application/xml"})
+    public ResponseEntity<?> insert(@Valid @RequestBody Modelo modeloArg) {
+        Modelo modelo = service.insert(modeloArg);
 
-		return ResponseEntity.created(uri).build();
-	}
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(modelo.getId()).toUri();
 
-	@ApiOperation(value = "Remove o modelo correspondente ao parâmetro.")
-	@ApiResponses(value = { 
-			@ApiResponse(code = 204, message = "No Content"),
-			@ApiResponse(code = 400, message = "Bad Request. O parâmetro enviado não corresponde a nenhum objeto no servidor.")
-	})
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
-	}
+        return ResponseEntity.created(uri).build();
+    }
 
-	@ApiOperation(value = "Atualiza o modelo enviado no corpo da requisição.")
-	@ApiResponses(value = { 
-			@ApiResponse(code = 204, message = "No Content"),
-			@ApiResponse(code = 400, message = "Bad Request. O objeto enviado no corpo da requisição é inválido.")
-	})
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	@PutMapping(value = "/{id}",consumes={"application/json", "application/xml"})
-	public ResponseEntity<?> update(@Valid @RequestBody Modelo modelo, @PathVariable Integer id) {
-		service.update(modelo, id);
-		return ResponseEntity.noContent().build();
-	}
+    @ApiOperation(value = "Remove o modelo correspondente ao parâmetro.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 400, message = "Bad Request. O parâmetro enviado não corresponde a nenhum objeto no servidor.")
+    })
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 
-	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<?> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessages.getConstraintViolationExceptionMsg(ex));
-	}
-	
-	@ExceptionHandler(EmptyResultDataAccessException.class)
-	public ResponseEntity<?> handleConstraintViolation(EmptyResultDataAccessException ex, WebRequest request) {
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessages.getEmptyResultDataAccessExceptionMsg(ex));
-	}
-	
-	@ExceptionHandler(ObjectNotFoundException.class)
-	public ResponseEntity<?> handleConstraintViolation(ObjectNotFoundException ex, WebRequest request) {
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ExceptionMessages.getObjectNotFoundExceptionMsg(ex));
-	}
+    @ApiOperation(value = "Atualiza o modelo enviado no corpo da requisição.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 400, message = "Bad Request. O objeto enviado no corpo da requisição é inválido.")
+    })
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @PutMapping(value = "/{id}", consumes = {"application/json", "application/xml"})
+    public ResponseEntity<?> update(@Valid @RequestBody Modelo modelo, @PathVariable Integer id) {
+        service.update(id, modelo);
+        return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<?> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessages.getConstraintViolationExceptionMsg(ex));
+    }
+
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    public ResponseEntity<?> handleConstraintViolation(EmptyResultDataAccessException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessages.getEmptyResultDataAccessExceptionMsg(ex));
+    }
+
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public ResponseEntity<?> handleConstraintViolation(ObjectNotFoundException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ExceptionMessages.getObjectNotFoundExceptionMsg(ex));
+    }
 }

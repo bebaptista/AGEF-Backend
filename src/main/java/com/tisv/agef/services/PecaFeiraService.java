@@ -1,63 +1,67 @@
 package com.tisv.agef.services;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.tisv.agef.domain.PecaFeira;
 import com.tisv.agef.repositories.PecaFeiraRepository;
 import com.tisv.agef.services.exceptions.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PecaFeiraService {
 
-	@Autowired
-	private PecaFeiraRepository repo;
+    private final PecaFeiraRepository repo;
 
-	public PecaFeira find(Integer id) {
-		Optional<PecaFeira> obj = repo.findById(id);
-		
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado!" +
-				"\n" + "Parâmetro: '"+ id + "'." +
-				"\n" + "Tipo: '" + PecaFeira.class.getName() + "'."));
-	}
-	
-	public List<PecaFeira> findAll() {
-		List<PecaFeira> pecasFeira = repo.findAll();
-		return pecasFeira;
-	}
-	
-	public PecaFeira findByNomeAndTamanho(String nome, String tamanho) {
-		Optional<PecaFeira> obj = repo.findByNomeAndTamanho(nome, tamanho);
-		
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado!" +
-				"\n" + "Parâmetros: '"+ nome + "' e '" + tamanho + "'." +
-				"\n" + "Tipo: '" + PecaFeira.class.getName() + "'."));
-	}
+    @Autowired
+    public PecaFeiraService(PecaFeiraRepository repo) {
+        this.repo = repo;
+    }
 
-	public PecaFeira insert(PecaFeira pecaFeira) {
-		return repo.save(pecaFeira);
-	}
+    public PecaFeira find(Integer id) {
+        Optional<PecaFeira> obj = repo.findById(id);
 
-	public void delete(Integer id) {
-		repo.deleteById(id);
-	}
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado!" +
+                        "\n" + "Parâmetro: '" + id + "'." +
+                        "\n" + "Tipo: '" + PecaFeira.class.getName() + "'."));
+    }
 
-	public void update(PecaFeira pecaFeiraArg, Integer id) {
-		Optional<PecaFeira> obj = repo.findById(id);
+    public List<PecaFeira> findAll() {
+        return repo.findAll();
+    }
 
-		if (obj.isPresent()) {
-			PecaFeira pecaFeira = obj.get();
+    PecaFeira findByModeloNomeAndModeloTamanho(String nome, String tamanho) {
+        Optional<PecaFeira> obj = repo.findByModelo_NomeAndModelo_Tamanho(nome, tamanho);
 
-			pecaFeira.setPreco(pecaFeiraArg.getPreco());
-			pecaFeira.setQuantidade(pecaFeiraArg.getQuantidade());
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado!" +
+                        "\n" + "Parâmetros: '" + nome + "' e '" + tamanho + "'." +
+                        "\n" + "Tipo: '" + PecaFeira.class.getName() + "'."));
+    }
 
-			repo.save(pecaFeiraArg);
-		}
-	}
+    public PecaFeira insert(PecaFeira pecaFeira) {
+        pecaFeira = repo.merge(pecaFeira);
+
+        return repo.save(pecaFeira);
+    }
+
+    public void delete(Integer id) {
+        repo.deleteById(id);
+    }
+
+    public void update(Integer id, PecaFeira pecaFeiraArg) {
+        Optional<PecaFeira> obj = repo.findById(id);
+
+        if (obj.isPresent()) {
+            PecaFeira pecaFeira = obj.get();
+
+            pecaFeira.setPreco(pecaFeiraArg.getPreco());
+            pecaFeira.setQuantidade(pecaFeiraArg.getQuantidade());
+
+            repo.save(pecaFeira);
+        }
+    }
 
 }

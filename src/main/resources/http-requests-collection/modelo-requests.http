@@ -3,7 +3,7 @@ GET http://localhost:8080/modelos
 Accept: application/json
 
 ### Retorna o modelo com id 'x'.
-GET http://localhost:8080/modelos/11
+GET http://localhost:8080/modelos/1
 Accept: application/json
 
 ### Persiste o novo modelo.

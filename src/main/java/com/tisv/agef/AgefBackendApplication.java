@@ -1,94 +1,99 @@
 package com.tisv.agef;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-
+import com.tisv.agef.domain.Defeito;
+import com.tisv.agef.domain.Modelo;
+import com.tisv.agef.domain.PecaFeira;
+import com.tisv.agef.domain.Venda;
+import com.tisv.agef.services.DefeitoService;
+import com.tisv.agef.services.ModeloService;
+import com.tisv.agef.services.PecaFeiraService;
+import com.tisv.agef.services.VendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.tisv.agef.domain.Defeito;
-import com.tisv.agef.domain.Modelo;
-import com.tisv.agef.domain.PecaFeira;
-import com.tisv.agef.domain.Venda;
-import com.tisv.agef.repositories.DefeitoRepository;
-import com.tisv.agef.repositories.ModeloRepository;
-import com.tisv.agef.repositories.PecaFeiraRepository;
-import com.tisv.agef.repositories.VendaRepository;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class AgefBackendApplication implements CommandLineRunner {
 
-	@Autowired
-	private ModeloRepository modeloRepository;
+    private final ModeloService modeloService;
 
-	@Autowired
-	private PecaFeiraRepository pecaFeiraRepository;
+    private final PecaFeiraService pecaFeiraService;
 
-	@Autowired
-	private DefeitoRepository defeitoRepository;
+    private final DefeitoService defeitoService;
 
-	@Autowired
-	private VendaRepository vendaRepository;
+    private final VendaService vendaService;
 
-	public static void main(String[] args) {
-		SpringApplication.run(AgefBackendApplication.class, args);
-	}
+    @Autowired
+    public AgefBackendApplication(ModeloService modeloService, PecaFeiraService pecaFeiraService, DefeitoService defeitoService, VendaService vendaService) {
+        this.modeloService = modeloService;
+        this.pecaFeiraService = pecaFeiraService;
+        this.defeitoService = defeitoService;
+        this.vendaService = vendaService;
+    }
 
-	@Override
-	public void run(String... args) throws Exception {
+    public static void main(String[] args) {
+        SpringApplication.run(AgefBackendApplication.class, args);
+    }
 
-		Modelo m1 = new Modelo("Calca", "40");
-		Modelo m2 = new Modelo("Blusa", "P");
-		Modelo m3 = new Modelo("Jeans", "40");
-		Modelo m4 = new Modelo("Carlos", "P");
-		Modelo m5 = new Modelo("Eric", "40");
-		Modelo m6 = new Modelo("Batata", "P");
-		Modelo m7 = new Modelo("Meia", "40");
-		Modelo m8 = new Modelo("Underwear", "P");
-		Modelo m9 = new Modelo("Meia calca", "40");
-		Modelo m10 = new Modelo("Sem ideia", "P");
+    @Override
+    public void run(String... args) {
 
-		modeloRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10));
+        Modelo m1 = new Modelo("Calça", "36");
+        Modelo m2 = new Modelo("Calça", "37");
+        Modelo m3 = new Modelo("Calça", "38");
+        Modelo m4 = new Modelo("Camisa", "P");
+        Modelo m5 = new Modelo("Camisa", "M");
+        Modelo m6 = new Modelo("Camisa", "G");
+        Modelo m7 = new Modelo("Moletom", "P");
+        Modelo m8 = new Modelo("Moletom", "M");
+        Modelo m9 = new Modelo("Moletom", "G");
 
-		PecaFeira pf1 = new PecaFeira(m1, 40.00, 100);
-		PecaFeira pf2 = new PecaFeira(m2, 50.00, 90);
-		PecaFeira pf3 = new PecaFeira(m3, 60.00, 80);
-		PecaFeira pf4 = new PecaFeira(m4, 70.00, 70);
-		PecaFeira pf5 = new PecaFeira(m5, 80.00, 60);
-		PecaFeira pf6 = new PecaFeira(m6, 90.00, 50);
-		PecaFeira pf7 = new PecaFeira(m7, 100.00, 40);
-		PecaFeira pf8 = new PecaFeira(m8, 110.00, 30);
-		PecaFeira pf9 = new PecaFeira(m9, 120.00, 20);
-		PecaFeira pf10 = new PecaFeira(m10, 130.00, 10);
+        List<Modelo> modelos = new ArrayList<>(Arrays.asList(m1, m2, m3, m4, m5, m6, m7, m8, m9));
+        modelos.forEach(modeloService::insert);
 
-		pecaFeiraRepository.saveAll(Arrays.asList(pf1, pf2, pf3, pf4, pf5, pf6, pf7, pf8, pf9, pf10));
+        PecaFeira p1 = new PecaFeira(100.00, 90, m1);
+        PecaFeira p2 = new PecaFeira(200.00, 80, m2);
+        PecaFeira p3 = new PecaFeira(300.00, 70, m3);
+        PecaFeira p4 = new PecaFeira(400.00, 60, m4);
+        PecaFeira p5 = new PecaFeira(500.00, 50, m5);
+        PecaFeira p6 = new PecaFeira(600.00, 40, m6);
+        PecaFeira p7 = new PecaFeira(700.00, 30, m7);
+        PecaFeira p8 = new PecaFeira(800.00, 20, m8);
+        PecaFeira p9 = new PecaFeira(900.00, 10, m9);
 
-		Venda v1 = new Venda(10.00, pf1.getNome(), pf1.getTamanho(), 30, LocalDate.now());
-		Venda v2 = new Venda(20.00, pf2.getNome(), pf2.getTamanho(), 40, LocalDate.now());
-		Venda v3 = new Venda(30.00, pf3.getNome(), pf3.getTamanho(), 50, LocalDate.now());
-		Venda v4 = new Venda(40.00, pf4.getNome(), pf4.getTamanho(), 60, LocalDate.now());
-		Venda v5 = new Venda(50.00, pf5.getNome(), pf5.getTamanho(), 70, LocalDate.now());
-		Venda v6 = new Venda(60.00, pf6.getNome(), pf6.getTamanho(), 80, LocalDate.now());
-		Venda v7 = new Venda(70.00, pf7.getNome(), pf7.getTamanho(), 90, LocalDate.now());
-		Venda v8 = new Venda(80.00, pf8.getNome(), pf8.getTamanho(), 100, LocalDate.now());
-		Venda v9 = new Venda(90.00, pf9.getNome(), pf9.getTamanho(), 110, LocalDate.now());
-		Venda v10 = new Venda(100.00, pf10.getNome(), pf10.getTamanho(), 120, LocalDate.now());
+        List<PecaFeira> pecas = new ArrayList<>(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9));
+        pecas.forEach(pecaFeiraService::insert);
 
-		vendaRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10));
+        Venda v1 = new Venda(100.00, 84, LocalDate.now(), p1.getModelo().getNome(), p1.getModelo().getTamanho());
+        Venda v2 = new Venda(200.00, 74, LocalDate.now(), p2.getModelo().getNome(), p2.getModelo().getTamanho());
+        Venda v3 = new Venda(300.00, 64, LocalDate.now(), p3.getModelo().getNome(), p3.getModelo().getTamanho());
+        Venda v4 = new Venda(400.00, 54, LocalDate.now(), p4.getModelo().getNome(), p4.getModelo().getTamanho());
+        Venda v5 = new Venda(500.00, 44, LocalDate.now(), p5.getModelo().getNome(), p5.getModelo().getTamanho());
+        Venda v6 = new Venda(600.00, 34, LocalDate.now(), p6.getModelo().getNome(), p6.getModelo().getTamanho());
+        Venda v7 = new Venda(700.00, 24, LocalDate.now(), p7.getModelo().getNome(), p7.getModelo().getTamanho());
+        Venda v8 = new Venda(800.00, 14, LocalDate.now(), p8.getModelo().getNome(), p8.getModelo().getTamanho());
+        Venda v9 = new Venda(900.00, 04, LocalDate.now(), p9.getModelo().getNome(), p9.getModelo().getTamanho());
 
-		Defeito d1 = new Defeito(pf1.getNome(), pf1.getTamanho(), 1, LocalDate.now());
-		Defeito d2 = new Defeito(pf2.getNome(), pf2.getTamanho(), 1, LocalDate.now());
-		Defeito d3 = new Defeito(pf3.getNome(), pf3.getTamanho(), 1, LocalDate.now());
-		Defeito d4 = new Defeito(pf4.getNome(), pf4.getTamanho(), 1, LocalDate.now());
-		Defeito d5 = new Defeito(pf5.getNome(), pf5.getTamanho(), 1, LocalDate.now());
-		Defeito d6 = new Defeito(pf6.getNome(), pf6.getTamanho(), 1, LocalDate.now());
-		Defeito d7 = new Defeito(pf7.getNome(), pf7.getTamanho(), 1, LocalDate.now());
-		Defeito d8 = new Defeito(pf8.getNome(), pf8.getTamanho(), 1, LocalDate.now());
-		Defeito d9 = new Defeito(pf9.getNome(), pf9.getTamanho(), 1, LocalDate.now());
-		Defeito d10 = new Defeito(pf10.getNome(), pf10.getTamanho(), 1, LocalDate.now());
+        List<Venda> vendas = new ArrayList<>(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9));
+        vendas.forEach(vendaService::insert);
 
-		defeitoRepository.saveAll(Arrays.asList(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10));
-	}
+        Defeito d1 = new Defeito(1, LocalDate.now(), p1.getModelo().getNome(), p1.getModelo().getTamanho());
+        Defeito d2 = new Defeito(1, LocalDate.now(), p2.getModelo().getNome(), p2.getModelo().getTamanho());
+        Defeito d3 = new Defeito(1, LocalDate.now(), p3.getModelo().getNome(), p3.getModelo().getTamanho());
+        Defeito d4 = new Defeito(1, LocalDate.now(), p4.getModelo().getNome(), p4.getModelo().getTamanho());
+        Defeito d5 = new Defeito(1, LocalDate.now(), p5.getModelo().getNome(), p5.getModelo().getTamanho());
+        Defeito d6 = new Defeito(1, LocalDate.now(), p6.getModelo().getNome(), p6.getModelo().getTamanho());
+        Defeito d7 = new Defeito(1, LocalDate.now(), p7.getModelo().getNome(), p7.getModelo().getTamanho());
+        Defeito d8 = new Defeito(1, LocalDate.now(), p8.getModelo().getNome(), p8.getModelo().getTamanho());
+        Defeito d9 = new Defeito(1, LocalDate.now(), p9.getModelo().getNome(), p9.getModelo().getTamanho());
+
+        List<Defeito> defeitos = new ArrayList<>(Arrays.asList(d1, d2, d3, d4, d5, d6, d7, d8, d9));
+        defeitos.forEach(defeitoService::insert);
+    }
 }

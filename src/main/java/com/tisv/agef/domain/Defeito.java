@@ -1,7 +1,8 @@
 package com.tisv.agef.domain;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,81 +12,38 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
+@EqualsAndHashCode
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Defeito implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@ApiModelProperty(hidden = true)
-	private int id;
+    private static final long serialVersionUID = 1L;
 
-	@NotBlank(message = "É obrigatório o preenchimento do nome.")
-	@ApiModelProperty(value = "Nome do modelo referente a peça vendida.", example = "Calca", required = true)
-	private String nome;
+    @ApiModelProperty(hidden = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Getter private int id;
 
-	@NotBlank(message = "É obrigatório o preenchimento do tamanho.")
-	@ApiModelProperty(value = "Tamanho do modelo referente a peça vendida.", example = "40", required = true)
-	private String tamanho;
+    @ApiModelProperty(value = "Quantidade de peças vendidas.", example = "2", required = true)
+    @NonNull @NotNull(message = "É obrigatório o preenchimento da quantidade vendida.")
+    @Positive(message = "O campo 'quantidade' deve conter um valor maior do que zero.")
+    @Getter @Setter private Integer quantidade;
 
-	@NotNull(message = "É obrigatório o preenchimento da quantidade vendida.")
-	@Positive(message = "O campo 'quantidade' deve conter um valor maior do que zero.")
-	@ApiModelProperty(value = "Quantidade de peças vendidas.", example = "2", required = true)
-	private Integer quantidade;
+    @ApiModelProperty(value = "Data da venda.", example = "10-10-2018", required = true)
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    @NonNull @NotNull(message = "É obrigatório o preenchimento da data da venda.")
+    @PastOrPresent(message = "O campo 'data' deve conter uma data válida.")
+    @Getter @Setter private LocalDate data;
 
-	@NotNull(message = "É obrigatório o preenchimento da data da venda.")
-	@PastOrPresent(message = "O campo 'data' deve conter uma data válida.")
-	@JsonFormat(pattern = "dd-MM-yyyy")
-	@ApiModelProperty(value = "Data da venda.", example = "10/10/2018", required = true)
-	private LocalDate data;
+    @ApiModelProperty(value = "Nome do modelo referente a peça vendida.", example = "Calça", required = true)
+    @NonNull @NotBlank(message = "É obrigatório o preenchimento do nome.")
+    @Getter @Setter private String nome;
 
-	public Defeito() { }
-
-	public Defeito(String nome, String tamanho, Integer quantidade, LocalDate data) {
-		this.nome = nome;
-		this.tamanho = tamanho;
-		this.quantidade = quantidade;
-		this.data = data;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getTamanho() {
-		return tamanho;
-	}
-
-	public void setTamanho(String tamanho) {
-		this.tamanho = tamanho;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public LocalDate getData() {
-		return data;
-	}
-
-	public void setData(LocalDate data) {
-		this.data = data;
-	}
-
-	public int getId() {
-		return id;
-	}
+    @ApiModelProperty(value = "Tamanho do modelo referente a peça vendida.", example = "40", required = true)
+    @NonNull @NotBlank(message = "É obrigatório o preenchimento do tamanho.")
+    @Getter @Setter private String tamanho;
 }

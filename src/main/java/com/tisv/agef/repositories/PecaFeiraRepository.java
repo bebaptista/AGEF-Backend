@@ -1,15 +1,16 @@
 package com.tisv.agef.repositories;
 
-import java.util.Optional;
-
+import com.tisv.agef.domain.PecaFeira;
+import com.tisv.agef.repositories.custom.PecaFeiraRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.tisv.agef.domain.PecaFeira;
+import java.util.Optional;
 
 @Repository
-public interface PecaFeiraRepository extends JpaRepository<PecaFeira, Integer>{ 
-	
-	Optional<PecaFeira> findByNomeAndTamanho(String nome, String tamanho);
-	
+public interface PecaFeiraRepository extends JpaRepository<PecaFeira, Integer>, PecaFeiraRepositoryCustom {
+
+    @Query
+    Optional<PecaFeira> findByModelo_NomeAndModelo_Tamanho(String nome, String tamanho);
 }

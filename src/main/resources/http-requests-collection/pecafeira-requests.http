@@ -3,7 +3,7 @@ GET http://localhost:8080/pecasfeira
 Accept: application/json
 
 ### Retorna a peça com id 'x'.
-GET http://localhost:8080/pecasfeira/11
+GET http://localhost:8080/pecasfeira/1
 Accept: application/json
 
 ### Persiste a nova peça.
@@ -11,21 +11,27 @@ POST http://localhost:8080/pecasfeira
 Content-Type: application/json
 
 {
-  "nome": "Camisa Polo",
-  "tamanho": "P",
-  "preco": 200.00,
-  "quantidade": 10
+  "preco": 42.00,
+  "quantidade": 42,
+  "modelo": {
+    "nome": "Camisa Polo",
+    "tamanho": "P",
+    "id": 10
+  }
 }
 
 ### Atualiza a peça com id 'x'.
-PUT http://localhost:8080/pecasfeira/11
+PUT http://localhost:8080/pecasfeira/1
 Content-Type: application/json
 
 {
-  "nome": "Peça Alterada",
-  "tamanho": "XG",
-  "preco": 500.00,
-  "quantidade": 42
+  "preco": 100.00,
+  "quantidade": 42,
+  "modelo": {
+    "nome": "Calça",
+    "tamanho": "36",
+    "id": 1
+  }
 }
 
 ### Apagar a peça com id 'x'.

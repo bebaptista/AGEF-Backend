@@ -1,104 +1,31 @@
 package com.tisv.agef.domain;
 
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotBlank;
-
-import io.swagger.annotations.ApiModelProperty;
-
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "NOME", "TAMANHO" }) })
+@EqualsAndHashCode
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"NOME", "TAMANHO"})})
 public class Modelo implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@ApiModelProperty(hidden = true)
-	private int id;
+    @ApiModelProperty(hidden = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Getter private int id;
 
-	@NotBlank(message = "É obrigatório o preenchimento do nome.")
-	@ApiModelProperty(value = "Nome do modelo.", example = "Camisa Polo", required = true)
-	private String nome;
+    @ApiModelProperty(value = "Nome do modelo.", example = "Camisa Polo", required = true)
+    @NonNull @NotBlank(message = "É obrigatório o preenchimento do nome.")
+    @Getter @Setter private String nome;
 
-	@NotBlank(message = "É obrigatório o preenchimento do tamanho.")
-	@ApiModelProperty(value = "Tamanho do modelo.", example = "P", required = true)
-	private String tamanho;
-
-	public Modelo() { }
-
-	public Modelo(String nome, String tamanho) {
-		this.nome = nome;
-		this.tamanho = tamanho;
-	}
-
-	public Modelo(int id, String nome, String tamanho) {
-		this.id = id;
-		this.nome = nome;
-		this.tamanho = tamanho;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getTamanho() {
-		return tamanho;
-	}
-
-	public void setTamanho(String tamanho) {
-		this.tamanho = tamanho;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((tamanho == null) ? 0 : tamanho.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Modelo other = (Modelo) obj;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (tamanho == null) {
-			if (other.tamanho != null)
-				return false;
-		} else if (!tamanho.equals(other.tamanho))
-			return false;
-		return true;
-	}
+    @ApiModelProperty(value = "Tamanho do modelo.", example = "P", required = true)
+    @NonNull @NotBlank(message = "É obrigatório o preenchimento do tamanho.")
+    @Getter @Setter private String tamanho;
 }
