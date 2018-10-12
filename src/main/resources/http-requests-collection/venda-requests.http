@@ -16,7 +16,7 @@ Content-Type: application/json
 
 {
   "nome": "Calça",
-  "tamanho": "36",
+  "tamanho": "38",
   "preco": 200.00,
   "quantidade": 5,
   "data": "01-01-2018"

@@ -42,13 +42,13 @@ public class DefeitoService {
         PecaFeira pecaFeira = pecaFeiraService.findByModeloNomeAndModeloTamanho(nome, tamanho);
 
         Integer qtdEstoque = pecaFeira.getQuantidade();
-        Integer qtdVendida = defeito.getQuantidade();
+        Integer qtdDefeituosa = defeito.getQuantidade();
 
-        if (qtdVendida > qtdEstoque) {
+        if (qtdDefeituosa > qtdEstoque) {
             throw new IllegalArgumentException("A quantidade de produtos defeituosos deve ser menor ou igual a quantidade de produtos em estoque");
         }
 
-        Integer qtdAtualizadaEstoque = qtdEstoque - qtdVendida;
+        Integer qtdAtualizadaEstoque = qtdEstoque - qtdDefeituosa;
         pecaFeira.setQuantidade(qtdAtualizadaEstoque);
         pecaFeiraService.insert(pecaFeira);
 
