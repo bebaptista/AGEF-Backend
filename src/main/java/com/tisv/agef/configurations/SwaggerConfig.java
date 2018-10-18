@@ -2,7 +2,6 @@ package com.tisv.agef.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -24,7 +23,7 @@ public class SwaggerConfig {
 				.useDefaultResponseMessages(false);
 	}
 
-	public ApiInfo apiInfo() {
+	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("AGEF v1.0").description("Documentação da API Rest").version("1.0")
 				.build();
 	}

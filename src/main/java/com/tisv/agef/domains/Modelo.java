@@ -1,17 +1,20 @@
 package com.tisv.agef.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"id", "deletado", "pecaFeira"})
 @NoArgsConstructor
-@RequiredArgsConstructor
+@SQLDelete(sql = "UPDATE MODELO SET deletado = true WHERE id = ?")
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"NOME", "TAMANHO"})})
+@ToString(exclude = "pecaFeira")
 public class Modelo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,6 +24,13 @@ public class Modelo implements Serializable {
     @Id
     @Getter private int id;
 
+    @ApiModelProperty(hidden = true)
+    @JsonIgnore
+    @OneToOne(mappedBy = "modelo", cascade = CascadeType.ALL)
+    @Getter PecaFeira pecaFeira;
+    @ApiModelProperty(hidden = true)
+    @Getter @Setter private Boolean deletado;
+
     @ApiModelProperty(value = "Nome do modelo.", example = "Camisa Polo", required = true)
     @NonNull @NotBlank(message = "É obrigatório o preenchimento do nome.")
     @Getter @Setter private String nome;
@@ -28,4 +38,10 @@ public class Modelo implements Serializable {
     @ApiModelProperty(value = "Tamanho do modelo.", example = "P", required = true)
     @NonNull @NotBlank(message = "É obrigatório o preenchimento do tamanho.")
     @Getter @Setter private String tamanho;
+
+    public Modelo(String nome, String tamanho) {
+        this.deletado = false;
+        this.nome = nome;
+        this.tamanho = tamanho;
+    }
 }

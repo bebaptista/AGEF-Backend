@@ -3,6 +3,7 @@ package com.tisv.agef.resources;
 import com.tisv.agef.domains.Modelo;
 import com.tisv.agef.resources.helpers.ExceptionMessages;
 import com.tisv.agef.services.ModeloService;
+import com.tisv.agef.services.exceptions.ConstraintViolationExceptionOnDelete;
 import com.tisv.agef.services.exceptions.ObjectNotFoundException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -93,8 +94,8 @@ public class ModeloResource {
         return ResponseEntity.noContent().build();
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<?> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
+    @ExceptionHandler({ConstraintViolationException.class, ConstraintViolationExceptionOnDelete.class})
+    public ResponseEntity<?> handleConstraintViolation(Exception ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessages.getConstraintViolationExceptionMsg(ex));
     }
 

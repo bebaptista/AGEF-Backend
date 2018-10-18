@@ -2,6 +2,7 @@ package com.tisv.agef.domains;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,14 +14,18 @@ import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 
 @Entity
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"id", "deletado", "preco", "quantidade"})
 @NoArgsConstructor
-@RequiredArgsConstructor
+@SQLDelete(sql = "UPDATE PECA_FEIRA SET deletado = true WHERE id = ?")
+@ToString
 public class PecaFeira implements Serializable {
 
     @ApiModelProperty(hidden = true)
     @Id
     @Getter private int id;
+
+    @ApiModelProperty(hidden = true)
+    @Getter @Setter private Boolean deletado = false;
 
     @ApiModelProperty(value = "Preço da peça no estoque da feira.", example = "45.50", allowableValues = "range[0.01, infinity]", required = true)
     @NonNull @NotNull(message = "É obrigatório o preenchimento do preço.")
@@ -37,4 +42,11 @@ public class PecaFeira implements Serializable {
     @NonNull @NotNull(message = "É obrigatório o preenchimento do modelo.")
     @OneToOne
     @Getter @Setter private Modelo modelo;
+
+    public PecaFeira(Double preco, Integer quantidade, Modelo modelo) {
+        this.deletado = false;
+        this.preco = preco;
+        this.quantidade = quantidade;
+        this.modelo = modelo;
+    }
 }
