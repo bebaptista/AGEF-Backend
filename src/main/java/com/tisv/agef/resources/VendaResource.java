@@ -1,45 +1,37 @@
 package com.tisv.agef.resources;
 
-import java.net.URI;
-import java.time.LocalDate;
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.tisv.agef.domains.Venda;
+import com.tisv.agef.resources.helpers.ExceptionMessages;
+import com.tisv.agef.services.VendaService;
+import com.tisv.agef.services.exceptions.ObjectNotFoundException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.tisv.agef.domain.Venda;
-import com.tisv.agef.resources.helpers.ExceptionMessages;
-import com.tisv.agef.services.VendaService;
-import com.tisv.agef.services.exceptions.ObjectNotFoundException;
-
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import javax.validation.Valid;
+import java.net.URI;
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/vendas")
 public class VendaResource {
 
+	private final VendaService service;
+
 	@Autowired
-	private VendaService service;
+	public VendaResource(VendaService service) {
+		this.service = service;
+	}
 
 	@ApiOperation(value = "Retorna a venda correspondente ao parâmetro.")
 	@ApiResponses(value = { 

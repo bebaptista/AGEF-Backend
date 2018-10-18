@@ -1,4 +1,4 @@
-package com.tisv.agef.domain;
+package com.tisv.agef.domains;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Venda implements Serializable {
+public class Defeito implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,11 +27,6 @@ public class Venda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Getter private int id;
-
-    @ApiModelProperty(value = "Preço praticado na venda da peça.", example = "60", required = true)
-    @NonNull @NotNull(message = "É obrigatório o preenchimento do preço.")
-    @Positive(message = "O campo 'preço' deve conter um valor maior do que zero.")
-    @Getter @Setter private Double preco;
 
     @ApiModelProperty(value = "Quantidade de peças vendidas.", example = "2", required = true)
     @NonNull @NotNull(message = "É obrigatório o preenchimento da quantidade vendida.")

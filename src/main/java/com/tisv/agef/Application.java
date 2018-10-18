@@ -1,9 +1,9 @@
 package com.tisv.agef;
 
-import com.tisv.agef.domain.Defeito;
-import com.tisv.agef.domain.Modelo;
-import com.tisv.agef.domain.PecaFeira;
-import com.tisv.agef.domain.Venda;
+import com.tisv.agef.domains.Defeito;
+import com.tisv.agef.domains.Modelo;
+import com.tisv.agef.domains.PecaFeira;
+import com.tisv.agef.domains.Venda;
 import com.tisv.agef.services.DefeitoService;
 import com.tisv.agef.services.ModeloService;
 import com.tisv.agef.services.PecaFeiraService;
@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
-public class AgefBackendApplication implements CommandLineRunner {
+public class Application implements CommandLineRunner {
 
     private final ModeloService modeloService;
 
@@ -30,7 +30,7 @@ public class AgefBackendApplication implements CommandLineRunner {
     private final VendaService vendaService;
 
     @Autowired
-    public AgefBackendApplication(ModeloService modeloService, PecaFeiraService pecaFeiraService, DefeitoService defeitoService, VendaService vendaService) {
+    public Application(ModeloService modeloService, PecaFeiraService pecaFeiraService, DefeitoService defeitoService, VendaService vendaService) {
         this.modeloService = modeloService;
         this.pecaFeiraService = pecaFeiraService;
         this.defeitoService = defeitoService;
@@ -38,7 +38,7 @@ public class AgefBackendApplication implements CommandLineRunner {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(AgefBackendApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class AgefBackendApplication implements CommandLineRunner {
         Venda v6 = new Venda(600.00, 34, LocalDate.now(), p6.getModelo().getNome(), p6.getModelo().getTamanho());
         Venda v7 = new Venda(700.00, 24, LocalDate.now(), p7.getModelo().getNome(), p7.getModelo().getTamanho());
         Venda v8 = new Venda(800.00, 14, LocalDate.now(), p8.getModelo().getNome(), p8.getModelo().getTamanho());
-        Venda v9 = new Venda(900.00, 04, LocalDate.now(), p9.getModelo().getNome(), p9.getModelo().getTamanho());
+        Venda v9 = new Venda(900.00, 4, LocalDate.now(), p9.getModelo().getNome(), p9.getModelo().getTamanho());
 
         List<Venda> vendas = new ArrayList<>(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9));
         vendas.forEach(vendaService::insert);

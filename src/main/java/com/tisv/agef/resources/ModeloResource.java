@@ -1,6 +1,6 @@
 package com.tisv.agef.resources;
 
-import com.tisv.agef.domain.Modelo;
+import com.tisv.agef.domains.Modelo;
 import com.tisv.agef.resources.helpers.ExceptionMessages;
 import com.tisv.agef.services.ModeloService;
 import com.tisv.agef.services.exceptions.ObjectNotFoundException;

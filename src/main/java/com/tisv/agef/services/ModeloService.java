@@ -1,6 +1,6 @@
 package com.tisv.agef.services;
 
-import com.tisv.agef.domain.Modelo;
+import com.tisv.agef.domains.Modelo;
 import com.tisv.agef.repositories.ModeloRepository;
 import com.tisv.agef.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

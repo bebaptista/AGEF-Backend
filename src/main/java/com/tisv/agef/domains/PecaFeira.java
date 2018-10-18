@@ -1,4 +1,4 @@
-package com.tisv.agef.domain;
+package com.tisv.agef.domains;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

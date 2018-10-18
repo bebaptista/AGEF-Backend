@@ -1,6 +1,6 @@
 package com.tisv.agef.services;
 
-import com.tisv.agef.domain.PecaFeira;
+import com.tisv.agef.domains.PecaFeira;
 import com.tisv.agef.repositories.PecaFeiraRepository;
 import com.tisv.agef.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

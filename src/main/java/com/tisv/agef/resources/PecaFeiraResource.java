@@ -1,6 +1,6 @@
 package com.tisv.agef.resources;
 
-import com.tisv.agef.domain.PecaFeira;
+import com.tisv.agef.domains.PecaFeira;
 import com.tisv.agef.resources.helpers.ExceptionMessages;
 import com.tisv.agef.services.PecaFeiraService;
 import com.tisv.agef.services.exceptions.ObjectNotFoundException;

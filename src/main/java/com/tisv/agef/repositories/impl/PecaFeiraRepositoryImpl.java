@@ -1,6 +1,6 @@
 package com.tisv.agef.repositories.impl;
 
-import com.tisv.agef.domain.PecaFeira;
+import com.tisv.agef.domains.PecaFeira;
 import com.tisv.agef.repositories.custom.PecaFeiraRepositoryCustom;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,6 +1,6 @@
 package com.tisv.agef.repositories;
 
-import com.tisv.agef.domain.PecaFeira;
+import com.tisv.agef.domains.PecaFeira;
 import com.tisv.agef.repositories.custom.PecaFeiraRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,42 +1,35 @@
 package com.tisv.agef.resources;
 
-import java.net.URI;
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.tisv.agef.domains.Defeito;
+import com.tisv.agef.resources.helpers.ExceptionMessages;
+import com.tisv.agef.services.DefeitoService;
+import com.tisv.agef.services.exceptions.ObjectNotFoundException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.tisv.agef.domain.Defeito;
-import com.tisv.agef.resources.helpers.ExceptionMessages;
-import com.tisv.agef.services.DefeitoService;
-import com.tisv.agef.services.exceptions.ObjectNotFoundException;
-
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/defeitos")
 public class DefeitoResource {
 
+	private final DefeitoService service;
+
 	@Autowired
-	private DefeitoService service;
+	public DefeitoResource(DefeitoService service) {
+		this.service = service;
+	}
 
 	@ApiOperation(value = "Retorna o defeito correspondente ao parâmetro.")
 	@ApiResponses(value = { 
