@@ -1,8 +1,15 @@
 package com.tisv.agef.domains;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.tisv.agef.jsonview.DefeitoView;
+import com.tisv.agef.jsonview.ModeloView;
+import com.tisv.agef.jsonview.PecaFeiraView;
+import com.tisv.agef.jsonview.VendaView;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
@@ -20,24 +27,24 @@ public class Modelo implements Serializable {
 
     @ApiModelProperty(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Getter private int id;
+    @JsonView({DefeitoView.Resumo.class, ModeloView.Resumo.class, PecaFeiraView.Resumo.class})
+    @Getter @Id private int id;
 
     @ApiModelProperty(hidden = true)
-    @JsonIgnore
     @OneToOne(cascade = CascadeType.MERGE, mappedBy = "modelo")
     @Getter PecaFeira pecaFeira;
 
     @ApiModelProperty(hidden = true)
-    @JsonIgnore
     @Getter @Setter private Boolean deletado;
 
     @ApiModelProperty(value = "Nome do modelo.", example = "Camisa Polo", required = true)
-    @NonNull @NotBlank(message = "É obrigatório o preenchimento do nome.")
+    @JsonView({DefeitoView.Resumo.class, ModeloView.Resumo.class, PecaFeiraView.Resumo.class, VendaView.Resumo.class})
+    @NotBlank(message = "É obrigatório o preenchimento do nome.")
     @Getter @Setter private String nome;
 
     @ApiModelProperty(value = "Tamanho do modelo.", example = "P", required = true)
-    @NonNull @NotBlank(message = "É obrigatório o preenchimento do tamanho.")
+    @JsonView({DefeitoView.Resumo.class, ModeloView.Resumo.class, PecaFeiraView.Resumo.class, VendaView.Resumo.class})
+    @NotBlank(message = "É obrigatório o preenchimento do tamanho.")
     @Getter @Setter private String tamanho;
 
     public Modelo() {

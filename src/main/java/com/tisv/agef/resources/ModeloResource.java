@@ -1,6 +1,8 @@
 package com.tisv.agef.resources;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.tisv.agef.domains.Modelo;
+import com.tisv.agef.jsonview.ModeloView;
 import com.tisv.agef.resources.helpers.ExceptionMessages;
 import com.tisv.agef.services.ModeloService;
 import com.tisv.agef.services.exceptions.ConstraintViolationExceptionOnDelete;
@@ -39,6 +41,7 @@ public class ModeloResource {
             @ApiResponse(code = 404, message = "Not Found. O objeto solicitado não foi encontrado no servidor.")
     })
     @GetMapping(value = "/{id}", produces = {"application/json", "application/xml"})
+    @JsonView({ModeloView.Resumo.class})
     public ResponseEntity<?> find(@PathVariable Integer id) {
         Modelo modelo = service.find(id);
         return ResponseEntity.ok(modelo);
@@ -50,6 +53,7 @@ public class ModeloResource {
             @ApiResponse(code = 204, message = "No Content")
     })
     @GetMapping(produces = {"application/json", "application/xml"})
+    @JsonView({ModeloView.Resumo.class})
     public ResponseEntity<?> findAll() {
         List<Modelo> modelos = service.findAll();
 

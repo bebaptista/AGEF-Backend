@@ -40,6 +40,12 @@ mvn spring-boot:run
 │   │   │       │   ├── PecaFeira.java
 │   │   │       │   └── Venda.java
 │   │   │       │      
+│   │   │       ├── jsonview
+│   │   │       │   ├── DefeitoView.java
+│   │   │       │   ├── ModeloView.java
+│   │   │       │   ├── PecaFeiraView.java
+│   │   │       │   └── VendaView.java
+│   │   │       │
 │   │   │       ├── repositories
 │   │   │       │   ├── custom
 │   │   │       │   │   └── PecaFeiraRepositoryCustom.java

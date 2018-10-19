@@ -1,7 +1,9 @@
 package com.tisv.agef.resources;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.tisv.agef.domains.Defeito;
+import com.tisv.agef.jsonview.DefeitoView;
 import com.tisv.agef.resources.helpers.ExceptionMessages;
 import com.tisv.agef.services.DefeitoService;
 import com.tisv.agef.services.exceptions.ObjectNotFoundException;
@@ -37,6 +39,7 @@ public class DefeitoResource {
             @ApiResponse(code = 404, message = "Not Found. O objeto solicitado não foi encontrado no servidor.")
     })
     @GetMapping(value = "/{id}", produces = {"application/json", "application/xml"})
+    @JsonView(DefeitoView.Resumo.class)
     public ResponseEntity<?> find(@PathVariable Integer id) {
         Defeito defeito = service.find(id);
         return ResponseEntity.ok(defeito);
@@ -48,6 +51,7 @@ public class DefeitoResource {
             @ApiResponse(code = 204, message = "No Content")
     })
     @GetMapping(produces = {"application/json", "application/xml"})
+    @JsonView(DefeitoView.Resumo.class)
     public ResponseEntity<?> findAll() {
         List<Defeito> defeitos = service.findAll();
 

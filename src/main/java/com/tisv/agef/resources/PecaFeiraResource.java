@@ -1,6 +1,8 @@
 package com.tisv.agef.resources;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.tisv.agef.domains.PecaFeira;
+import com.tisv.agef.jsonview.PecaFeiraView;
 import com.tisv.agef.resources.helpers.ExceptionMessages;
 import com.tisv.agef.services.PecaFeiraService;
 import com.tisv.agef.services.exceptions.ObjectNotFoundException;
@@ -38,6 +40,7 @@ public class PecaFeiraResource {
             @ApiResponse(code = 404, message = "Not Found. O objeto solicitado não foi encontrado no servidor.")
     })
     @GetMapping(value = "/{id}", produces = {"application/json", "application/xml"})
+    @JsonView({PecaFeiraView.Resumo.class})
     public ResponseEntity<?> find(@PathVariable Integer id) {
         PecaFeira pecaFeira = service.find(id);
         return ResponseEntity.ok(pecaFeira);
@@ -49,6 +52,7 @@ public class PecaFeiraResource {
             @ApiResponse(code = 204, message = "No Content")
     })
     @GetMapping(produces = {"application/json", "application/xml"})
+    @JsonView({PecaFeiraView.Resumo.class})
     public ResponseEntity<?> findAll() {
         List<PecaFeira> pecasFeira = service.findAll();
 

@@ -6,10 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PecaFeiraRepository extends JpaRepository<PecaFeira, Integer> {
 
     @Query
-    List<PecaFeira> findAllByDeletadoFalse();
+    List<PecaFeira> findAllByDeletadoIsFalse();
+
+    @Query
+    Optional<PecaFeira> findByIdAndDeletadoIsFalse(Integer id);
 }

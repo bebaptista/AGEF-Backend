@@ -21,7 +21,7 @@ public class ModeloService {
     }
 
     public Modelo find(Integer id) {
-        Optional<Modelo> obj = repo.findById(id);
+        Optional<Modelo> obj = repo.findByIdAndDeletadoIsFalse(id);
 
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado!" +
@@ -30,7 +30,7 @@ public class ModeloService {
     }
 
     public List<Modelo> findAll() {
-        return repo.findAllByDeletadoFalse();
+        return repo.findAllByDeletadoIsFalse();
     }
 
     public Modelo insert(Modelo modelo) {
@@ -40,7 +40,7 @@ public class ModeloService {
     public void delete(Integer id) {
         Modelo modelo = this.find(id);
 
-        if (modelo.getPecaFeira() == null) {
+        if (modelo.getPecaFeira() == null || modelo.getPecaFeira().getDeletado()) {
             repo.deleteById(id);
 
         } else {

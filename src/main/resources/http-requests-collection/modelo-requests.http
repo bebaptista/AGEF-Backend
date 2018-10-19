@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
   "nome": "Camisa Polo",
-  "tamanho": "P"
+  "tamanho": "M"
 }
 
 ### Atualiza o modelo com id 'x'.

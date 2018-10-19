@@ -14,8 +14,6 @@ Content-Type: application/json
   "preco": 42.00,
   "quantidade": 42,
   "modelo": {
-    "nome": "Camisa Polo",
-    "tamanho": "P",
     "id": 10
   }
 }
@@ -25,11 +23,9 @@ PUT http://localhost:8080/pecasfeira/1
 Content-Type: application/json
 
 {
-  "preco": 100.00,
+  "preco": 333.00,
   "quantidade": 42,
   "modelo": {
-    "nome": "Calça",
-    "tamanho": "36",
     "id": 1
   }
 }

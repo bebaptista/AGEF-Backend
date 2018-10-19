@@ -20,7 +20,7 @@ public class PecaFeiraService {
     }
 
     public PecaFeira find(Integer id) {
-        Optional<PecaFeira> obj = repo.findById(id);
+        Optional<PecaFeira> obj = repo.findByIdAndDeletadoIsFalse(id);
 
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado!" +
@@ -29,7 +29,7 @@ public class PecaFeiraService {
     }
 
     public List<PecaFeira> findAll() {
-        return repo.findAllByDeletadoFalse();
+        return repo.findAllByDeletadoIsFalse();
     }
 
     public PecaFeira insert(PecaFeira pecaFeira) {
