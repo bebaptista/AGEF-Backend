@@ -11,7 +11,6 @@ import java.io.Serializable;
 
 @Entity
 @EqualsAndHashCode(exclude = {"id", "deletado", "pecaFeira"})
-@NoArgsConstructor
 @SQLDelete(sql = "UPDATE MODELO SET deletado = true WHERE id = ?")
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"NOME", "TAMANHO"})})
 @ToString(exclude = "pecaFeira")
@@ -26,9 +25,11 @@ public class Modelo implements Serializable {
 
     @ApiModelProperty(hidden = true)
     @JsonIgnore
-    @OneToOne(mappedBy = "modelo", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE, mappedBy = "modelo")
     @Getter PecaFeira pecaFeira;
+
     @ApiModelProperty(hidden = true)
+    @JsonIgnore
     @Getter @Setter private Boolean deletado;
 
     @ApiModelProperty(value = "Nome do modelo.", example = "Camisa Polo", required = true)
@@ -38,6 +39,10 @@ public class Modelo implements Serializable {
     @ApiModelProperty(value = "Tamanho do modelo.", example = "P", required = true)
     @NonNull @NotBlank(message = "É obrigatório o preenchimento do tamanho.")
     @Getter @Setter private String tamanho;
+
+    public Modelo() {
+        this.deletado = false;
+    }
 
     public Modelo(String nome, String tamanho) {
         this.deletado = false;

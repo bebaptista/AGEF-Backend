@@ -70,28 +70,28 @@ public class Application implements CommandLineRunner {
         List<PecaFeira> pecas = new ArrayList<>(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9));
         pecas.forEach(pecaFeiraService::insert);
 
-        Venda v1 = new Venda(100.00, 84, LocalDate.now(), p1.getModelo().getNome(), p1.getModelo().getTamanho());
-        Venda v2 = new Venda(200.00, 74, LocalDate.now(), p2.getModelo().getNome(), p2.getModelo().getTamanho());
-        Venda v3 = new Venda(300.00, 64, LocalDate.now(), p3.getModelo().getNome(), p3.getModelo().getTamanho());
-        Venda v4 = new Venda(400.00, 54, LocalDate.now(), p4.getModelo().getNome(), p4.getModelo().getTamanho());
-        Venda v5 = new Venda(500.00, 44, LocalDate.now(), p5.getModelo().getNome(), p5.getModelo().getTamanho());
-        Venda v6 = new Venda(600.00, 34, LocalDate.now(), p6.getModelo().getNome(), p6.getModelo().getTamanho());
-        Venda v7 = new Venda(700.00, 24, LocalDate.now(), p7.getModelo().getNome(), p7.getModelo().getTamanho());
-        Venda v8 = new Venda(800.00, 14, LocalDate.now(), p8.getModelo().getNome(), p8.getModelo().getTamanho());
-        Venda v9 = new Venda(900.00, 4, LocalDate.now(), p9.getModelo().getNome(), p9.getModelo().getTamanho());
+        Venda v1 = new Venda(100.00, 84, p1, LocalDate.now());
+        Venda v2 = new Venda(200.00, 74, p2, LocalDate.now());
+        Venda v3 = new Venda(300.00, 64, p3, LocalDate.now());
+        Venda v4 = new Venda(400.00, 54, p4, LocalDate.now());
+        Venda v5 = new Venda(500.00, 44, p5, LocalDate.now());
+        Venda v6 = new Venda(600.00, 34, p6, LocalDate.now());
+        Venda v7 = new Venda(700.00, 24, p7, LocalDate.now());
+        Venda v8 = new Venda(800.00, 14, p8, LocalDate.now());
+        Venda v9 = new Venda(900.00, 4, p9, LocalDate.now());
 
         List<Venda> vendas = new ArrayList<>(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9));
         vendas.forEach(vendaService::insert);
 
-        Defeito d1 = new Defeito(1, LocalDate.now(), p1.getModelo().getNome(), p1.getModelo().getTamanho());
-        Defeito d2 = new Defeito(1, LocalDate.now(), p2.getModelo().getNome(), p2.getModelo().getTamanho());
-        Defeito d3 = new Defeito(1, LocalDate.now(), p3.getModelo().getNome(), p3.getModelo().getTamanho());
-        Defeito d4 = new Defeito(1, LocalDate.now(), p4.getModelo().getNome(), p4.getModelo().getTamanho());
-        Defeito d5 = new Defeito(1, LocalDate.now(), p5.getModelo().getNome(), p5.getModelo().getTamanho());
-        Defeito d6 = new Defeito(1, LocalDate.now(), p6.getModelo().getNome(), p6.getModelo().getTamanho());
-        Defeito d7 = new Defeito(1, LocalDate.now(), p7.getModelo().getNome(), p7.getModelo().getTamanho());
-        Defeito d8 = new Defeito(1, LocalDate.now(), p8.getModelo().getNome(), p8.getModelo().getTamanho());
-        Defeito d9 = new Defeito(1, LocalDate.now(), p9.getModelo().getNome(), p9.getModelo().getTamanho());
+        Defeito d1 = new Defeito(p1, 1, LocalDate.now());
+        Defeito d2 = new Defeito(p2, 1, LocalDate.now());
+        Defeito d3 = new Defeito(p3, 1, LocalDate.now());
+        Defeito d4 = new Defeito(p4, 1, LocalDate.now());
+        Defeito d5 = new Defeito(p5, 1, LocalDate.now());
+        Defeito d6 = new Defeito(p6, 1, LocalDate.now());
+        Defeito d7 = new Defeito(p7, 1, LocalDate.now());
+        Defeito d8 = new Defeito(p8, 1, LocalDate.now());
+        Defeito d9 = new Defeito(p9, 1, LocalDate.now());
 
         List<Defeito> defeitos = new ArrayList<>(Arrays.asList(d1, d2, d3, d4, d5, d6, d7, d8, d9));
         defeitos.forEach(defeitoService::insert);

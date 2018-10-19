@@ -24,26 +24,15 @@ public class PecaFeiraService {
 
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado!" +
-                        "\n" + "Parâmetro: '" + id + "'." +
-                        "\n" + "Tipo: '" + PecaFeira.class.getName() + "'."));
+                        "\n" + "Parâmetro: " + id +
+                        "\n" + "Tipo: " + PecaFeira.class.getName()));
     }
 
     public List<PecaFeira> findAll() {
-        return repo.findAll();
-    }
-
-    PecaFeira findByModeloNomeAndModeloTamanho(String nome, String tamanho) {
-        Optional<PecaFeira> obj = repo.findByModelo_NomeAndModelo_Tamanho(nome, tamanho);
-
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado!" +
-                        "\n" + "Parâmetros: '" + nome + "' e '" + tamanho + "'." +
-                        "\n" + "Tipo: '" + PecaFeira.class.getName() + "'."));
+        return repo.findAllByDeletadoFalse();
     }
 
     public PecaFeira insert(PecaFeira pecaFeira) {
-        pecaFeira = repo.merge(pecaFeira);
-
         return repo.save(pecaFeira);
     }
 

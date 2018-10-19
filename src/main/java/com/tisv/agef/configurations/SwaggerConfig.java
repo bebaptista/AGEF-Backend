@@ -14,18 +14,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.tisv.agef.resources"))
-				.paths(PathSelectors.any()).build().apiInfo(apiInfo())
-				.useDefaultResponseMessages(false);
-	}
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.tisv.agef.resources"))
+                .paths(PathSelectors.any()).build().apiInfo(apiInfo())
+                .useDefaultResponseMessages(false);
+    }
 
-	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("AGEF v1.0").description("Documentação da API Rest").version("1.0")
-				.build();
-	}
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder().title("AGEF v1.0").description("Documentação da API Rest").version("1.0")
+                .build();
+    }
 
 }

@@ -28,8 +28,8 @@ public class DefeitoService {
 
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado!" +
-                        "\n" + "Parâmetro: '" + id + "'." +
-                        "\n" + "Tipo: '" + Defeito.class.getName() + "'."));
+                        "\n" + "Parâmetro: " + id +
+                        "\n" + "Tipo: " + Defeito.class.getName()));
     }
 
     public List<Defeito> findAll() {
@@ -37,9 +37,7 @@ public class DefeitoService {
     }
 
     public Defeito insert(Defeito defeito) {
-        String nome = defeito.getNome();
-        String tamanho = defeito.getTamanho();
-        PecaFeira pecaFeira = pecaFeiraService.findByModeloNomeAndModeloTamanho(nome, tamanho);
+        PecaFeira pecaFeira = pecaFeiraService.find(defeito.getPecaFeira().getId());
 
         Integer qtdEstoque = pecaFeira.getQuantidade();
         Integer qtdDefeituosa = defeito.getQuantidade();

@@ -22,6 +22,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping(value = "/vendas")
 public class VendaResource {
@@ -34,22 +35,22 @@ public class VendaResource {
 	}
 
 	@ApiOperation(value = "Retorna a venda correspondente ao parâmetro.")
-	@ApiResponses(value = { 
-			@ApiResponse(code = 200, message = "OK"), 
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 404, message = "Not Found. O objeto solicitado não foi encontrado no servidor.")
 	})
-	@GetMapping(value = "/{id}", produces={"application/json", "application/xml"})
+	@GetMapping(value = "/{id}", produces = {"application/json", "application/xml"})
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Venda venda = service.find(id);
 		return ResponseEntity.ok(venda);
 	}
 
 	@ApiOperation(value = "Retorna todas as vendas persistidas.")
-	@ApiResponses(value = { 
+	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 204, message = "No Content")
 	})
-	@GetMapping(produces={"application/json", "application/xml"})
+	@GetMapping(produces = {"application/json", "application/xml"})
 	public ResponseEntity<?> findAll() {
 		List<Venda> vendas = service.findAll();
 
@@ -57,12 +58,12 @@ public class VendaResource {
 	}
 
 	@ApiOperation(value = "Retorna os dados do faturamento do período correspondente ao parâmetro.")
-	@ApiResponses(value = { 
-			@ApiResponse(code = 200, message = "OK"), 
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 204, message = "No Content"),
 			@ApiResponse(code = 400, message = "Bad Request. A data inicial deve ser menor do que a data final e ambas devem ser iguais ou menores do que a data atual e seguir o modelo 'dd-MM-aaaa'.")
 	})
-	@GetMapping(value = "/faturamento", produces={"application/json", "application/xml"})
+	@GetMapping(value = "/faturamento", produces = {"application/json", "application/xml"})
 	public ResponseEntity<?> calculaFaturamento(
 			@RequestParam(value = "dataInicial") @DateTimeFormat(pattern = ("dd-MM-yyyy")) LocalDate dataInicial,
 			@RequestParam(value = "dataFinal") @DateTimeFormat(pattern = ("dd-MM-yyyy")) LocalDate dataFinal) {
@@ -73,12 +74,12 @@ public class VendaResource {
 	}
 
 	@ApiOperation(value = "Persiste a venda enviada no corpo da requisição.")
-	@ApiResponses(value = { 
+	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Created"),
 			@ApiResponse(code = 400, message = "Bad Request. O objeto enviado no corpo da requisição é inválido.")
 	})
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@PostMapping(consumes={"application/json", "application/xml"})
+	@PostMapping(consumes = {"application/json", "application/xml"})
 	public ResponseEntity<?> insert(@Valid @RequestBody Venda vendaArg) {
 		Venda venda = service.insert(vendaArg);
 
@@ -88,7 +89,7 @@ public class VendaResource {
 	}
 
 	@ApiOperation(value = "Remove a venda correspondente ao parâmetro.")
-	@ApiResponses(value = { 
+	@ApiResponses(value = {
 			@ApiResponse(code = 204, message = "No Content"),
 			@ApiResponse(code = 400, message = "Bad Request. O parâmetro enviado não corresponde a nenhum objeto no servidor.")
 	})
@@ -103,19 +104,19 @@ public class VendaResource {
 	public ResponseEntity<?> handleConstraintViolation(EmptyResultDataAccessException ex, WebRequest request) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessages.getEmptyResultDataAccessExceptionMsg(ex));
 	}
-	
+
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<?> handleConstraintViolation(IllegalArgumentException ex, WebRequest request) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessages.getIllegalArgumentExceptionMsg(ex));
 	}
-	
+
 	@ExceptionHandler(InvalidFormatException.class)
 	public ResponseEntity<?> handleConstraintViolation(InvalidFormatException ex, WebRequest request) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-						"A data inserida está em um formato inválido. Certifique-se de formatá-la no modelo 'dd-MM-aaaa'." + 
-					    "\n" + "Erro: '" + ex.toString() + "'.");
+				"A data inserida está em um formato inválido. Certifique-se de formatá-la no modelo 'dd-MM-aaaa'." +
+						"\n" + "Erro: '" + ex.toString() + "'.");
 	}
-	
+
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<?> handleConstraintViolation(ObjectNotFoundException ex, WebRequest request) {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ExceptionMessages.getObjectNotFoundExceptionMsg(ex));

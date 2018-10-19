@@ -4,11 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
@@ -28,6 +24,11 @@ public class Defeito implements Serializable {
     @Id
     @Getter private int id;
 
+    @ApiModelProperty(value = "Peça vendida na feira.", required = true)
+    @ManyToOne
+    @NonNull @NotNull(message = "É obrigatório o preenchimento da peça vendida.")
+    @Getter @Setter private PecaFeira pecaFeira;
+
     @ApiModelProperty(value = "Quantidade de peças vendidas.", example = "2", required = true)
     @NonNull @NotNull(message = "É obrigatório o preenchimento da quantidade vendida.")
     @Positive(message = "O campo 'quantidade' deve conter um valor maior do que zero.")
@@ -38,12 +39,4 @@ public class Defeito implements Serializable {
     @NonNull @NotNull(message = "É obrigatório o preenchimento da data da venda.")
     @PastOrPresent(message = "O campo 'data' deve conter uma data válida.")
     @Getter @Setter private LocalDate data;
-
-    @ApiModelProperty(value = "Nome do modelo referente a peça vendida.", example = "Calça", required = true)
-    @NonNull @NotBlank(message = "É obrigatório o preenchimento do nome.")
-    @Getter @Setter private String nome;
-
-    @ApiModelProperty(value = "Tamanho do modelo referente a peça vendida.", example = "40", required = true)
-    @NonNull @NotBlank(message = "É obrigatório o preenchimento do tamanho.")
-    @Getter @Setter private String tamanho;
 }

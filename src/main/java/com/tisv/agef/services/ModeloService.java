@@ -25,12 +25,12 @@ public class ModeloService {
 
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado!" +
-                        "\n" + "Parâmetro: '" + id + "'." +
-                        "\n" + "Tipo: '" + Modelo.class.getName() + "'."));
+                        "\n" + "Parâmetro: " + id +
+                        "\n" + "Tipo: " + Modelo.class.getName()));
     }
 
     public List<Modelo> findAll() {
-        return repo.findAll();
+        return repo.findAllByDeletadoFalse();
     }
 
     public Modelo insert(Modelo modelo) {

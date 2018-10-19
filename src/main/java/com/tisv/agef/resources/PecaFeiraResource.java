@@ -20,6 +20,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping(value = "/pecasfeira")
 public class PecaFeiraResource {

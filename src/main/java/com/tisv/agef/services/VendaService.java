@@ -29,8 +29,8 @@ public class VendaService {
 
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado!" +
-                        "\n" + "Parâmetro: '" + id + "'." +
-                        "\n" + "Tipo: '" + Venda.class.getName() + "'."));
+                        "\n" + "Parâmetro: " + id +
+                        "\n" + "Tipo: " + Venda.class.getName()));
     }
 
     public List<Venda> findAll() {
@@ -38,9 +38,7 @@ public class VendaService {
     }
 
     public Venda insert(Venda venda) {
-        String nome = venda.getNome();
-        String tamanho = venda.getTamanho();
-        PecaFeira pecaFeira = pecaFeiraService.findByModeloNomeAndModeloTamanho(nome, tamanho);
+        PecaFeira pecaFeira = pecaFeiraService.find(venda.getPecaFeira().getId());
 
         Integer qtdEstoque = pecaFeira.getQuantidade();
         Integer qtdVendida = venda.getQuantidade();

@@ -4,10 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -17,10 +14,14 @@ import java.io.Serializable;
 @EqualsAndHashCode(exclude = {"id", "deletado", "preco", "quantidade"})
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE PECA_FEIRA SET deletado = true WHERE id = ?")
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"MODELO_ID"})})
 @ToString
 public class PecaFeira implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(hidden = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Getter private int id;
 
@@ -28,18 +29,17 @@ public class PecaFeira implements Serializable {
     @Getter @Setter private Boolean deletado = false;
 
     @ApiModelProperty(value = "Preço da peça no estoque da feira.", example = "45.50", allowableValues = "range[0.01, infinity]", required = true)
-    @NonNull @NotNull(message = "É obrigatório o preenchimento do preço.")
+    @NotNull(message = "É obrigatório o preenchimento do preço.")
     @Positive(message = "O campo 'preço' deve conter um valor maior do que zero.")
     @Getter @Setter private Double preco;
 
     @ApiModelProperty(value = "Quantidade de peças no estoque da feira.", example = "25", allowableValues = "range[0, infinity]", required = true)
-    @NonNull @NotNull(message = "É obrigatório o preenchimento da quantidade de peças.")
+    @NotNull(message = "É obrigatório o preenchimento da quantidade de peças.")
     @PositiveOrZero(message = "O campo 'quantidade' deve conter um valor maior ou igual à zero.")
     @Getter @Setter private Integer quantidade;
 
     @ApiModelProperty(value = "Id do modelo correspondente a peça.", example = "1", required = true)
-    @MapsId
-    @NonNull @NotNull(message = "É obrigatório o preenchimento do modelo.")
+    @NotNull(message = "É obrigatório o preenchimento do modelo.")
     @OneToOne
     @Getter @Setter private Modelo modelo;
 
