@@ -1,51 +1,67 @@
 package com.tisv.agef.services;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.tisv.agef.domains.Modelo;
+import com.tisv.agef.repositories.ModeloRepository;
+import com.tisv.agef.services.exceptions.ConstraintViolationExceptionOnDelete;
+import com.tisv.agef.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tisv.agef.domain.Modelo;
-import com.tisv.agef.repositories.ModeloRepository;
-import com.tisv.agef.services.exceptions.ObjectNotFoundException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ModeloService {
 
-	@Autowired
-	private ModeloRepository repo;
+    private final ModeloRepository repo;
 
-	public Modelo find(Integer id) {
-		Optional<Modelo> obj = repo.findById(id);
-		
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! ID: " + id + ", Tipo: " + Modelo.class.getName()));
-	}
-	
-	public List<Modelo> findAll() {
-		List<Modelo> objs = repo.findAll();
-		return objs;
-	}
+    @Autowired
+    public ModeloService(ModeloRepository repo) {
+        this.repo = repo;
+    }
 
-	public Modelo insert(Modelo modelo) {
-		return repo.save(modelo);
-	}
+    public Modelo find(Integer id) {
+        Optional<Modelo> obj = repo.findByIdAndDeletadoIsFalse(id);
 
-	public void delete(Integer id) {
-		repo.deleteById(id);
-	}
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado!" +
+                        "\n" + "Parâmetro: " + id +
+                        "\n" + "Tipo: " + Modelo.class.getName()));
+    }
 
-	public void update(Modelo modelo, Integer id) {
-		Optional<Modelo> obj = repo.findById(id);
-		
-		if (obj.isPresent()) {
-			Modelo p = obj.get();
-			
-			p.setNome(modelo.getNome());
-			p.setTamanho(modelo.getTamanho());
-			
-			repo.save(p);	
-		}
-	}
+    public List<Modelo> findAll() {
+        return repo.findAllByDeletadoIsFalse();
+    }
+
+    public Modelo insert(Modelo modelo) {
+        return repo.save(modelo);
+    }
+
+    public void delete(Integer id) {
+        Modelo modelo = this.find(id);
+
+        if (modelo.getPecaFeira() == null || modelo.getPecaFeira().getDeletado()) {
+            repo.deleteById(id);
+
+        } else {
+            throw new ConstraintViolationExceptionOnDelete(
+                    "Não é possivel deletar este modelo enquanto existir uma peça associada a ele" +
+                            "\n" + "Modelo: " + modelo.toString() +
+                            "\n" + "Peça: " + modelo.getPecaFeira().toString()
+            );
+        }
+    }
+
+    public void update(Integer id, Modelo modeloArg) {
+        Optional<Modelo> obj = repo.findById(id);
+
+        if (obj.isPresent()) {
+            Modelo modelo = obj.get();
+
+            modelo.setNome(modeloArg.getNome());
+            modelo.setTamanho(modeloArg.getTamanho());
+
+            repo.save(modelo);
+        }
+    }
 }

@@ -1,0 +1,23 @@
+### Retorna todos os defeitos.
+GET http://localhost:8080/defeitos
+Accept: application/json
+
+### Retorna o defeito com id 'x'.
+GET http://localhost:8080/defeitos/1
+Accept: application/json
+
+### Persiste o novo defeito.
+POST http://localhost:8080/defeitos
+Content-Type: application/json
+
+{
+  "nome": "Camisa Polo",
+  "tamanho": "P",
+  "quantidade": 10,
+  "data": "01-01-2018"
+}
+
+### Apaga o defeito com id 'x'.
+DELETE http://localhost:8080/defeitos/1
+
+###

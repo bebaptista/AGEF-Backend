@@ -1,50 +1,60 @@
 package com.tisv.agef.services;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.tisv.agef.domains.Defeito;
+import com.tisv.agef.domains.PecaFeira;
+import com.tisv.agef.repositories.DefeitoRepository;
+import com.tisv.agef.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tisv.agef.domain.Defeito;
-import com.tisv.agef.repositories.DefeitoRepository;
-import com.tisv.agef.services.exceptions.ObjectNotFoundException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DefeitoService {
-	
-	@Autowired
-	private DefeitoRepository repo;
 
-	public Defeito find(Integer id) {
-		Optional<Defeito> obj = repo.findById(id);
-		
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! ID: " + id + ", Tipo: " + Defeito.class.getName()));
-	}
-	
-	public List<Defeito> findAll() {
-		List<Defeito> defeitos = repo.findAll();
-		return defeitos;
-	}
+    private final DefeitoRepository repo;
 
-	public Defeito insert(Defeito defeito) {
-		return repo.save(defeito);
-	}
+    private final PecaFeiraService pecaFeiraService;
 
-	public void delete(Integer id) {
-		repo.deleteById(id);
-	}
+    @Autowired
+    public DefeitoService(DefeitoRepository repo, PecaFeiraService pecaFeiraService) {
+        this.repo = repo;
+        this.pecaFeiraService = pecaFeiraService;
+    }
 
-	public void update(Defeito defeitoArg, Integer id) {
-		Optional<Defeito> obj = repo.findById(id);
+    public Defeito find(Integer id) {
+        Optional<Defeito> obj = repo.findById(id);
 
-		if (obj.isPresent()) {
-			Defeito defeito = obj.get();
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado!" +
+                        "\n" + "Parâmetro: " + id +
+                        "\n" + "Tipo: " + Defeito.class.getName()));
+    }
 
-			defeito.setQuantidade(defeitoArg.getQuantidade());
+    public List<Defeito> findAll() {
+        return repo.findAll();
+    }
 
-			repo.save(defeitoArg);
-		}
-	}
+    public Defeito insert(Defeito defeito) {
+        PecaFeira pecaFeira = pecaFeiraService.find(defeito.getPecaFeira().getId());
+
+        Integer qtdEstoque = pecaFeira.getQuantidade();
+        Integer qtdDefeituosa = defeito.getQuantidade();
+
+        if (qtdDefeituosa > qtdEstoque) {
+            throw new IllegalArgumentException("A quantidade de produtos defeituosos deve ser menor ou igual a quantidade de produtos em estoque");
+        }
+
+        Integer qtdAtualizadaEstoque = qtdEstoque - qtdDefeituosa;
+        pecaFeira.setQuantidade(qtdAtualizadaEstoque);
+        pecaFeiraService.insert(pecaFeira);
+
+        return repo.save(defeito);
+    }
+
+
+    public void delete(Integer id) {
+        repo.deleteById(id);
+    }
 }
