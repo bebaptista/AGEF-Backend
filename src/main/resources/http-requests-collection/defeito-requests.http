@@ -11,10 +11,11 @@ POST http://localhost:8080/defeitos
 Content-Type: application/json
 
 {
-  "nome": "Camisa Polo",
-  "tamanho": "P",
-  "quantidade": 10,
-  "data": "01-01-2018"
+  "quantidade": 1,
+  "data": "01-01-2018",
+  "pecaFeira": {
+    "id": 1
+  }
 }
 
 ### Apaga o defeito com id 'x'.

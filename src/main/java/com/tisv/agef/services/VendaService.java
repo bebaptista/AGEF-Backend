@@ -37,6 +37,10 @@ public class VendaService {
         return repo.findAll();
     }
 
+    public List<Venda> findByDataBetween(LocalDate dataInicial, LocalDate dataFinal) {
+        return repo.findByDataBetween(dataInicial, dataFinal);
+    }
+
     public Venda insert(Venda venda) {
         PecaFeira pecaFeira = pecaFeiraService.find(venda.getPecaFeira().getId());
 
@@ -58,7 +62,4 @@ public class VendaService {
         repo.deleteById(id);
     }
 
-    public Double calcularFaturamento(LocalDate dataInicial, LocalDate dataFinal) {
-        return repo.calcularFaturamento(dataInicial, dataFinal);
-    }
 }

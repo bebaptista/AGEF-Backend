@@ -7,7 +7,7 @@ GET http://localhost:8080/vendas/1
 Accept: application/json
 
 ### Retorna o faturamento do período 'dd/MM/aaaa' à 'dd/MM/aaaa'.
-GET http://localhost:8080/vendas/faturamento/?dataInicial=01-01-2018&dataFinal=31-12-2018
+GET http://localhost:8080/vendas?dataInicial=01-01-2018&dataFinal=31-12-2018
 Accept: application/json
 
 ### Persiste a nova venda.
@@ -15,11 +15,12 @@ POST http://localhost:8080/vendas
 Content-Type: application/json
 
 {
-  "nome": "Calça",
-  "tamanho": "38",
   "preco": 200.00,
-  "quantidade": 5,
-  "data": "01-01-2018"
+  "quantidade": 1,
+  "data": "01-01-2018",
+  "pecaFeira": {
+    "id": 1
+  }
 }
 
 ### Apagar a venda com id 'x'.

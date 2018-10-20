@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface VendaRepository extends JpaRepository<Venda, Integer> {
 
-    @Query("SELECT SUM(preco * quantidade) FROM Venda WHERE data BETWEEN ?1 AND ?2")
-    Double calcularFaturamento(LocalDate dataInicial, LocalDate dataFinal);
+    @Query
+    List<Venda> findByDataBetween(LocalDate dataInicial, LocalDate dataFinal);
 }

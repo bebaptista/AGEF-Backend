@@ -61,20 +61,20 @@ public class VendaResource {
         return (vendas.isEmpty()) ? ResponseEntity.noContent().build() : ResponseEntity.ok(vendas);
     }
 
-    @ApiOperation(value = "Retorna os dados do faturamento do período correspondente ao parâmetro.")
+    @ApiOperation(value = "Retorna as vendas do período correspondente aos parâmetros.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 204, message = "No Content"),
             @ApiResponse(code = 400, message = "Bad Request. A data inicial deve ser menor do que a data final e ambas devem ser iguais ou menores do que a data atual e seguir o modelo 'dd-MM-aaaa'.")
     })
-    @GetMapping(value = "/faturamento", produces = {"application/json", "application/xml"})
-    public ResponseEntity<?> calculaFaturamento(
+    @GetMapping(params = {"dataInicial", "dataFinal"}, produces = {"application/json", "application/xml"})
+    @JsonView(VendaView.Resumo.class)
+    public ResponseEntity<?> findByDataBetween(
             @RequestParam(value = "dataInicial") @DateTimeFormat(pattern = ("dd-MM-yyyy")) LocalDate dataInicial,
             @RequestParam(value = "dataFinal") @DateTimeFormat(pattern = ("dd-MM-yyyy")) LocalDate dataFinal) {
-        Double faturamento = service.calcularFaturamento(dataInicial, dataFinal);
+        List<Venda> vendas = service.findByDataBetween(dataInicial, dataFinal);
 
-        return (faturamento == null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(faturamento);
-
+        return (vendas == null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(vendas);
     }
 
     @ApiOperation(value = "Persiste a venda enviada no corpo da requisição.")
