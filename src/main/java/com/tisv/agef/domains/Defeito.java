@@ -38,8 +38,8 @@ public class Defeito implements Serializable {
     @Positive(message = "O campo 'quantidade' deve conter um valor maior do que zero.")
     @Getter @Setter private Integer quantidade;
 
-    @ApiModelProperty(value = "Data da venda.", example = "10-10-2018", required = true)
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @ApiModelProperty(value = "Data da venda.", example = "10/10/2018", required = true)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @JsonView(DefeitoView.Resumo.class)
     @NonNull @NotNull(message = "É obrigatório o preenchimento da data da venda.")
     @PastOrPresent(message = "O campo 'data' deve conter uma data válida.")

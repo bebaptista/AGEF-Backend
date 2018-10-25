@@ -44,8 +44,8 @@ public class Venda implements Serializable {
     @NonNull @NotNull(message = "É obrigatório o preenchimento da peça vendida.")
     @Getter @Setter private PecaFeira pecaFeira;
 
-    @ApiModelProperty(value = "Data da venda.", example = "10-10-2018", required = true)
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @ApiModelProperty(value = "Data da venda.", example = "10/10/2018", required = true)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @JsonView(VendaView.Resumo.class)
     @NonNull @NotNull(message = "É obrigatório o preenchimento da data da venda.")
     @PastOrPresent(message = "O campo 'data' deve conter uma data válida.")

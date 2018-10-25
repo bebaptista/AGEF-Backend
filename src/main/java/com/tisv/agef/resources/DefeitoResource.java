@@ -99,7 +99,7 @@ public class DefeitoResource {
     @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity<?> handleConstraintViolation(InvalidFormatException ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                "A data inserida está em um formato inválido. Certifique-se de formatá-la no modelo 'dd-MM-aaaa'." +
+                "A data inserida está em um formato inválido. Certifique-se de formatá-la no modelo 'dd/MM/aaaa'." +
                         "\n" + "Erro: '" + ex.toString() + "'.");
     }
 

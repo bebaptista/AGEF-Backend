@@ -65,13 +65,13 @@ public class VendaResource {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 204, message = "No Content"),
-            @ApiResponse(code = 400, message = "Bad Request. A data inicial deve ser menor do que a data final e ambas devem ser iguais ou menores do que a data atual e seguir o modelo 'dd-MM-aaaa'.")
+            @ApiResponse(code = 400, message = "Bad Request. A data inicial deve ser menor do que a data final e ambas devem ser iguais ou menores do que a data atual e seguir o modelo 'dd/MM/aaaa'.")
     })
     @GetMapping(params = {"dataInicial", "dataFinal"}, produces = {"application/json", "application/xml"})
     @JsonView(VendaView.Resumo.class)
     public ResponseEntity<?> findByDataBetween(
-            @RequestParam(value = "dataInicial") @DateTimeFormat(pattern = ("dd-MM-yyyy")) LocalDate dataInicial,
-            @RequestParam(value = "dataFinal") @DateTimeFormat(pattern = ("dd-MM-yyyy")) LocalDate dataFinal) {
+            @RequestParam(value = "dataInicial") @DateTimeFormat(pattern = ("dd/MM/yyyy")) LocalDate dataInicial,
+            @RequestParam(value = "dataFinal") @DateTimeFormat(pattern = ("dd/MM/yyyy")) LocalDate dataFinal) {
         List<Venda> vendas = service.findByDataBetween(dataInicial, dataFinal);
 
         return (vendas == null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(vendas);
@@ -117,7 +117,7 @@ public class VendaResource {
     @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity<?> handleConstraintViolation(InvalidFormatException ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                "A data inserida está em um formato inválido. Certifique-se de formatá-la no modelo 'dd-MM-aaaa'." +
+                "A data inserida está em um formato inválido. Certifique-se de formatá-la no modelo 'dd/MM/aaaa'." +
                         "\n" + "Erro: '" + ex.toString() + "'.");
     }
 
