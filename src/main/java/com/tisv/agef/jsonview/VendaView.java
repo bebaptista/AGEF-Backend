@@ -4,4 +4,7 @@ public class VendaView {
 
     public interface Resumo {
     }
+
+    public interface Completo extends Resumo {
+    }
 }

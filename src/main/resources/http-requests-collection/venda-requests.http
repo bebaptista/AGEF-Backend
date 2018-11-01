@@ -11,7 +11,8 @@ GET http://localhost:8080/vendas?dataInicial=01-01-2018&dataFinal=31-12-2018
 Accept: application/json
 
 ### Persiste a nova venda.
-POST http://localhost:8080/vendas
+#POST http://localhost:8080/vendas
+POST http://agef.herokuapp.com/vendas
 Content-Type: application/json
 
 {

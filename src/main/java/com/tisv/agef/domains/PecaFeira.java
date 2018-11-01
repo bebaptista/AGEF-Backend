@@ -26,14 +26,14 @@ public class PecaFeira implements Serializable {
 
     @ApiModelProperty(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({DefeitoView.Resumo.class, PecaFeiraView.Resumo.class})
+    @JsonView({DefeitoView.Resumo.class, PecaFeiraView.Resumo.class, VendaView.Completo.class})
     @Getter @Id private int id;
 
     @ApiModelProperty(hidden = true)
     @Getter @Setter private Boolean deletado = false;
 
     @ApiModelProperty(value = "Preço da peça no estoque da feira.", example = "45.50", allowableValues = "range[0.01, infinity]", required = true)
-    @JsonView({DefeitoView.Resumo.class, PecaFeiraView.Resumo.class})
+    @JsonView({DefeitoView.Resumo.class, PecaFeiraView.Resumo.class, VendaView.Completo.class})
     @NotNull(message = "É obrigatório o preenchimento do preço.")
     @Positive(message = "O campo 'preço' deve conter um valor maior do que zero.")
     @Getter @Setter private Double preco;

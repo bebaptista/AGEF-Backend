@@ -54,7 +54,7 @@ public class VendaResource {
             @ApiResponse(code = 204, message = "No Content")
     })
     @GetMapping(produces = {"application/json", "application/xml"})
-    @JsonView(VendaView.Resumo.class)
+    @JsonView(VendaView.Completo.class)
     public ResponseEntity<?> findAll() {
         List<Venda> vendas = service.findAll();
 
