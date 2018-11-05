@@ -57,30 +57,53 @@ public class Application implements CommandLineRunner {
         List<Modelo> modelos = new ArrayList<>(Arrays.asList(m1, m2, m3, m4, m5, m6, m7, m8, m9));
         modelos.forEach(modeloService::insert);
 
-        PecaFeira p1 = new PecaFeira(100.00, 90, m1);
-        PecaFeira p2 = new PecaFeira(200.00, 80, m2);
-        PecaFeira p3 = new PecaFeira(300.00, 70, m3);
-        PecaFeira p4 = new PecaFeira(400.00, 60, m4);
-        PecaFeira p5 = new PecaFeira(500.00, 50, m5);
-        PecaFeira p6 = new PecaFeira(600.00, 40, m6);
-        PecaFeira p7 = new PecaFeira(700.00, 30, m7);
-        PecaFeira p8 = new PecaFeira(800.00, 20, m8);
-        PecaFeira p9 = new PecaFeira(900.00, 10, m9);
+        PecaFeira p1 = new PecaFeira(30.50, 20, m1);
+        PecaFeira p2 = new PecaFeira(39.99, 20, m2);
+        PecaFeira p3 = new PecaFeira(50.00, 20, m3);
+        PecaFeira p4 = new PecaFeira(120.00, 20, m4);
+        PecaFeira p5 = new PecaFeira(85.00, 20, m5);
+        PecaFeira p6 = new PecaFeira(69.99, 20, m6);
+        PecaFeira p7 = new PecaFeira(45.00, 20, m7);
+        PecaFeira p8 = new PecaFeira(20.00, 20, m8);
+        PecaFeira p9 = new PecaFeira(149.99, 20, m9);
 
         List<PecaFeira> pecas = new ArrayList<>(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9));
         pecas.forEach(pecaFeiraService::insert);
 
-        Venda v1 = new Venda(100.00, 84, p1, LocalDate.now());
-        Venda v2 = new Venda(200.00, 74, p2, LocalDate.now());
-        Venda v3 = new Venda(300.00, 64, p3, LocalDate.now());
-        Venda v4 = new Venda(400.00, 54, p4, LocalDate.now());
-        Venda v5 = new Venda(500.00, 44, p5, LocalDate.now());
-        Venda v6 = new Venda(600.00, 34, p6, LocalDate.now());
-        Venda v7 = new Venda(700.00, 24, p7, LocalDate.now());
-        Venda v8 = new Venda(800.00, 14, p8, LocalDate.now());
-        Venda v9 = new Venda(900.00, 4, p9, LocalDate.now());
+        Venda v1 = new Venda(30.50, 2, p1, LocalDate.of(2018, 10, 7));
+        Venda v1A = new Venda(149.99, 3, p9, LocalDate.of(2018, 10, 7));
+        Venda v1B = new Venda(45.00, 1, p7, LocalDate.of(2018, 10, 7));
 
-        List<Venda> vendas = new ArrayList<>(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9));
+        Venda v2 = new Venda(39.99, 4, p2, LocalDate.of(2018, 10, 14));
+        Venda v2A = new Venda(20.00, 1, p8, LocalDate.of(2018, 10, 14));
+        Venda v2B = new Venda(69.99, 3, p6, LocalDate.of(2018, 10, 14));
+
+        Venda v3 = new Venda(50.00, 2, p3, LocalDate.of(2018, 10, 21));
+        Venda v3A = new Venda(85.00, 1, p5, LocalDate.of(2018, 10, 21));
+        Venda v3B = new Venda(39.99, 3, p2, LocalDate.of(2018, 10, 21));
+
+        Venda v4 = new Venda(120.00, 1, p4, LocalDate.of(2018, 10, 28));
+        Venda v4A = new Venda(30.50, 3, p1, LocalDate.of(2018, 10, 28));
+        Venda v4B = new Venda(149.99, 2, p9, LocalDate.of(2018, 10, 28));
+
+        Venda v5 = new Venda(85.00, 1, p5, LocalDate.of(2018, 11, 4));
+        Venda v5A = new Venda(50.00, 2, p3, LocalDate.of(2018, 11, 4));
+        Venda v5B = new Venda(120.00, 3, p4, LocalDate.of(2018, 11, 4));
+
+        Venda v6 = new Venda(30.50, 1, p1, LocalDate.now());
+        Venda v6A = new Venda(39.99, 1, p2, LocalDate.now());
+        Venda v6B = new Venda(50.00, 1, p3, LocalDate.now());
+        Venda v6C = new Venda(120.00, 1, p4, LocalDate.now());
+        Venda v6D = new Venda(85.00, 1, p5, LocalDate.now());
+        Venda v6E = new Venda(69.99, 1, p6, LocalDate.now());
+        Venda v6F = new Venda(45.00, 1, p7, LocalDate.now());
+        Venda v6G = new Venda(20.00, 1, p8, LocalDate.now());
+        Venda v6H = new Venda(149.99, 1, p9, LocalDate.now());
+
+
+        List<Venda> vendas = new ArrayList<>(Arrays.asList(
+                v1, v1A, v1B, v2, v2A, v2B, v3, v3A, v3B, v4, v4A, v4B, v5, v5A, v5B, v6, v6A, v6B, v6C, v6D, v6E, v6F, v6G, v6H
+        ));
         vendas.forEach(vendaService::insert);
 
         Defeito d1 = new Defeito(p1, 1, LocalDate.now());
