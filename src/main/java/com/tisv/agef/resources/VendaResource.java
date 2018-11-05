@@ -36,6 +36,21 @@ public class VendaResource {
         this.service = service;
     }
 
+    @ApiOperation(value = "Remove a venda correspondente ao parâmetro e adiciona novamente a peça no estoque.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 400, message = "Bad Request. O parâmetro enviado não corresponde a nenhum objeto no servidor.")
+    })
+    @PutMapping(value = "/{idVenda}/estornar/{idPeca}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public ResponseEntity<?> estornar(@PathVariable Integer idVenda, @PathVariable Integer idPeca) {
+        System.out.println("BATATAAAAAAAAAAAAAAAAAAAAAAAAAAAA!");
+        System.out.println(idVenda);
+        System.out.println(idPeca);
+        service.estornar(idVenda, idPeca);
+        return ResponseEntity.noContent().build();
+    }
+
     @ApiOperation(value = "Retorna a venda correspondente ao parâmetro.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -82,8 +97,8 @@ public class VendaResource {
             @ApiResponse(code = 201, message = "Created"),
             @ApiResponse(code = 400, message = "Bad Request. O objeto enviado no corpo da requisição é inválido.")
     })
-    @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = {"application/json", "application/xml"})
+    @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<?> insert(@Valid @RequestBody Venda vendaArg) {
         Venda venda = service.insert(vendaArg);
 
@@ -97,8 +112,8 @@ public class VendaResource {
             @ApiResponse(code = 204, message = "No Content"),
             @ApiResponse(code = 400, message = "Bad Request. O parâmetro enviado não corresponde a nenhum objeto no servidor.")
     })
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

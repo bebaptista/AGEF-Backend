@@ -11,8 +11,7 @@ GET http://localhost:8080/vendas?dataInicial=01-01-2018&dataFinal=31-12-2018
 Accept: application/json
 
 ### Persiste a nova venda.
-#POST http://localhost:8080/vendas
-POST http://agef.herokuapp.com/vendas
+POST http://localhost:8080/vendas
 Content-Type: application/json
 
 {
@@ -26,5 +25,9 @@ Content-Type: application/json
 
 ### Apagar a venda com id 'x'.
 DELETE http://localhost:8080/vendas/1
+
+###
+
+PUT http://localhost:8080/vendas/1/estornar/1
 
 ###

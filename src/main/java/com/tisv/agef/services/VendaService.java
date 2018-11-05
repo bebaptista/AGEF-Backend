@@ -62,4 +62,9 @@ public class VendaService {
         repo.deleteById(id);
     }
 
+    public void estornar(Integer idVenda, Integer idPeca) {
+        pecaFeiraService.estornar(idPeca);
+        repo.deleteById(idVenda);
+    }
+
 }

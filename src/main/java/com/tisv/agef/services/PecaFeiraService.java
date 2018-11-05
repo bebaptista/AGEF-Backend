@@ -53,4 +53,8 @@ public class PecaFeiraService {
         }
     }
 
+    public void estornar(Integer id) {
+        this.repo.updateByIdSumOneQuantity(id);
+    }
+
 }
