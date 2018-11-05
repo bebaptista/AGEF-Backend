@@ -83,7 +83,7 @@ public class VendaResource {
             @ApiResponse(code = 400, message = "Bad Request. A data inicial deve ser menor do que a data final e ambas devem ser iguais ou menores do que a data atual e seguir o modelo 'dd/MM/aaaa'.")
     })
     @GetMapping(params = {"dataInicial", "dataFinal"}, produces = {"application/json", "application/xml"})
-    @JsonView(VendaView.Resumo.class)
+    @JsonView(VendaView.Completo.class)
     public ResponseEntity<?> findByDataBetween(
             @RequestParam(value = "dataInicial") @DateTimeFormat(pattern = ("dd/MM/yyyy")) LocalDate dataInicial,
             @RequestParam(value = "dataFinal") @DateTimeFormat(pattern = ("dd/MM/yyyy")) LocalDate dataFinal) {
