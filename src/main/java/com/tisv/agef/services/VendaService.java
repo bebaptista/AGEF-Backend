@@ -63,7 +63,10 @@ public class VendaService {
     }
 
     public void estornar(Integer idVenda, Integer idPeca) {
-        pecaFeiraService.estornar(idPeca);
+        Venda venda = this.find(idVenda);
+        Integer qtdVendida = venda.getQuantidade();
+
+        pecaFeiraService.estornar(idPeca, qtdVendida);
         repo.deleteById(idVenda);
     }
 

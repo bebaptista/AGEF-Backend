@@ -21,6 +21,6 @@ public interface PecaFeiraRepository extends JpaRepository<PecaFeira, Integer> {
 
     @Transactional
     @Modifying()
-    @Query(value = "UPDATE PECA_FEIRA p SET p.quantidade = (SELECT quantidade + 1 FROM PECA_FEIRA WHERE ID = ?1) WHERE p.id = ?1", nativeQuery = true)
-    void updateByIdSumOneQuantity(Integer id);
+    @Query(value = "UPDATE PECA_FEIRA p SET p.quantidade = (SELECT quantidade + ?2 FROM PECA_FEIRA WHERE ID = ?1) WHERE p.id = ?1", nativeQuery = true)
+    void updateByIdSumOneQuantity(Integer id, Integer qtdVendida);
 }
