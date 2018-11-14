@@ -1,5 +1,6 @@
 package com.tisv.agef.repositories;
 
+import com.tisv.agef.domains.Modelo;
 import com.tisv.agef.domains.PecaFeira;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -19,8 +20,11 @@ public interface PecaFeiraRepository extends JpaRepository<PecaFeira, Integer> {
     @Query
     Optional<PecaFeira> findByIdAndDeletadoIsFalse(Integer id);
 
+    @Query
+    Optional<PecaFeira> findByModeloAndDeletado(Modelo modelo, Boolean foiDeletado);
+
     @Transactional
     @Modifying()
     @Query(value = "UPDATE PECA_FEIRA p SET p.quantidade = (SELECT quantidade + ?2 FROM PECA_FEIRA WHERE ID = ?1) WHERE p.id = ?1", nativeQuery = true)
-    void updateByIdSumOneQuantity(Integer id, Integer qtdVendida);
+    void updateByIdSumQuantity(Integer id, Integer qtdVendida);
 }

@@ -1,5 +1,6 @@
 package com.tisv.agef.services;
 
+import com.tisv.agef.domains.Modelo;
 import com.tisv.agef.domains.PecaFeira;
 import com.tisv.agef.repositories.PecaFeiraRepository;
 import com.tisv.agef.services.exceptions.ObjectNotFoundException;
@@ -19,6 +20,14 @@ public class PecaFeiraService {
         this.repo = repo;
     }
 
+    public void delete(Integer id) {
+        repo.deleteById(id);
+    }
+
+    public void estornar(Integer id, Integer qtdVendida) {
+        this.repo.updateByIdSumQuantity(id, qtdVendida);
+    }
+
     public PecaFeira find(Integer id) {
         Optional<PecaFeira> obj = repo.findByIdAndDeletadoIsFalse(id);
 
@@ -33,11 +42,27 @@ public class PecaFeiraService {
     }
 
     public PecaFeira insert(PecaFeira pecaFeira) {
-        return repo.save(pecaFeira);
-    }
+        PecaFeira peca;
+        Modelo modelo = pecaFeira.getModelo();
+        Optional<PecaFeira> obj = repo.findByModeloAndDeletado(modelo, true);
 
-    public void delete(Integer id) {
-        repo.deleteById(id);
+        if (obj.isPresent()) {
+            PecaFeira pecaDeletada = obj.get();
+
+            Double novoPreco = pecaFeira.getPreco();
+            Integer novaQuantidade = pecaFeira.getQuantidade();
+
+            pecaDeletada.setDeletado(false);
+            pecaDeletada.setPreco(novoPreco);
+            pecaDeletada.setQuantidade(novaQuantidade);
+
+            peca = pecaDeletada;
+
+        } else {
+            peca = pecaFeira;
+        }
+
+        return repo.save(peca);
     }
 
     public void update(Integer id, PecaFeira pecaFeiraArg) {
@@ -51,10 +76,6 @@ public class PecaFeiraService {
 
             repo.save(pecaFeira);
         }
-    }
-
-    public void estornar(Integer id, Integer qtdVendida) {
-        this.repo.updateByIdSumOneQuantity(id, qtdVendida);
     }
 
 }
