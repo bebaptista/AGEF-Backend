@@ -53,8 +53,15 @@ public class DefeitoService {
         return repo.save(defeito);
     }
 
-
     public void delete(Integer id) {
         repo.deleteById(id);
+    }
+
+    public void estornar(Integer idDefeito, Integer idPeca) {
+        Defeito defeito = this.find(idDefeito);
+        Integer qtdDefeituosa = defeito.getQuantidade();
+
+        pecaFeiraService.estornar(idPeca, qtdDefeituosa);
+        repo.deleteById(idDefeito);
     }
 }

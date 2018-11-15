@@ -33,6 +33,18 @@ public class DefeitoResource {
         this.service = service;
     }
 
+    @ApiOperation(value = "Remove o defeito correspondente ao parâmetro e adiciona novamente a peça no estoque.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 400, message = "Bad Request. O parâmetro enviado não corresponde a nenhum objeto no servidor.")
+    })
+    @PutMapping(value = "/{idDefeito}/estornar/{idPeca}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public ResponseEntity<?> estornar(@PathVariable Integer idDefeito, @PathVariable Integer idPeca) {
+        service.estornar(idDefeito, idPeca);
+        return ResponseEntity.noContent().build();
+    }
+
     @ApiOperation(value = "Retorna o defeito correspondente ao parâmetro.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),

@@ -44,9 +44,6 @@ public class VendaResource {
     @PutMapping(value = "/{idVenda}/estornar/{idPeca}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public ResponseEntity<?> estornar(@PathVariable Integer idVenda, @PathVariable Integer idPeca) {
-        System.out.println("BATATAAAAAAAAAAAAAAAAAAAAAAAAAAAA!");
-        System.out.println(idVenda);
-        System.out.println(idPeca);
         service.estornar(idVenda, idPeca);
         return ResponseEntity.noContent().build();
     }
